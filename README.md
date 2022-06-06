@@ -15,11 +15,10 @@ npm i unplugin-jsx-string
 
 ```ts
 // vite.config.ts
-import DefineOptions from 'unplugin-jsx-string/vite'
-import Vue from '@vitejs/plugin-vue'
+import JsxString from 'unplugin-jsx-string/vite'
 
 export default defineConfig({
-  plugins: [Vue(), DefineOptions()],
+  plugins: [JsxString()],
 })
 ```
 
@@ -30,10 +29,10 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import DefineOptions from 'unplugin-jsx-string/rollup'
+import JsxString from 'unplugin-jsx-string/rollup'
 
 export default {
-  plugins: [DefineOptions()], // Must be before Vue plugin!
+  plugins: [JsxString()],
 }
 ```
 
@@ -47,9 +46,7 @@ export default {
 import { build } from 'esbuild'
 
 build({
-  plugins: [
-    require('unplugin-jsx-string/esbuild')(), // Must be before Vue plugin!
-  ],
+  plugins: [require('unplugin-jsx-string/esbuild')()],
 })
 ```
 
