@@ -2,6 +2,8 @@
 
 [![Unit Test](https://github.com/sxzz/unplugin-jsx-string/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-jsx-string/actions/workflows/unit-test.yml)
 
+Converts JSX to HTML strings at compile time.
+
 ## Installation
 
 ```bash
@@ -79,6 +81,18 @@ module.exports = {
 ```
 
 <br></details>
+
+#### TypeScript Support
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-jsx-string" /* ... */]
+  }
+}
+```
 
 ## Usage
 
