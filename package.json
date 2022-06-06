@@ -1,6 +1,6 @@
 {
   "name": "unplugin-jsx-string",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "packageManager": "pnpm@7.1.9",
   "description": "My awesome typescript library",
   "license": "MIT",
