@@ -24,7 +24,7 @@ specifiers:
   tsx: ^3.4.2
   typescript: ^4.7.3
   unplugin: ^0.7.0
-  vitest: ^0.14.0
+  vitest: ^0.14.1
 
 dependencies:
   '@babel/parser': 7.18.4
@@ -42,7 +42,7 @@ devDependencies:
   '@sxzz/eslint-config-ts': 2.2.2_eslint@8.17.0
   '@types/babel__traverse': 7.17.1
   '@types/lodash': 4.14.182
-  '@types/node': 17.0.36
+  '@types/node': 17.0.40
   '@types/react': 18.0.12
   bumpp: 7.1.1
   eslint: 8.17.0
@@ -52,7 +52,7 @@ devDependencies:
   tsup: 6.1.0_typescript@4.7.3
   tsx: 3.4.2
   typescript: 4.7.3
-  vitest: 0.14.0
+  vitest: 0.14.1
 
 packages:
 
@@ -155,20 +155,20 @@ packages:
   /@esbuild-kit/cjs-loader/2.0.1:
     resolution: {integrity: sha512-KmE8XouKm6m05jPIsf5CTIZZ4171GHd+PUts1mtti2tzoiD228qCRjpkCwg540c3fMUweKupO+PIpkJ9+Z7vPg==}
     dependencies:
-      '@esbuild-kit/core-utils': 1.2.1
+      '@esbuild-kit/core-utils': 1.3.0
       get-tsconfig: 3.0.1
     dev: true
 
-  /@esbuild-kit/core-utils/1.2.1:
-    resolution: {integrity: sha512-zNtrwZ/754OMs6joIQIxsdOA3rjhde7Vt/IzkgNnCcQrwUDG5iHmlv9vhlHzyg+BZ6Cp519lrkMKlTCEW00Kpw==}
+  /@esbuild-kit/core-utils/1.3.0:
+    resolution: {integrity: sha512-c3N86nZAgU7soEbSCyLGVVf+9iz5fWw4ujK6e8KSDN3PuVFD6G9JVyLsNWvNoWLmNANb0YKxuhqdOLM4kAK66w==}
     dependencies:
       esbuild: 0.14.38
     dev: true
 
-  /@esbuild-kit/esm-loader/2.1.3:
-    resolution: {integrity: sha512-cpETLDjAUa1swka6liurVBsFLUzZihR7Nxl4q5DywwD6XGPIQr+frTcSxXi9TIm5oeDoi+4i/d+L4YOanLSIBQ==}
+  /@esbuild-kit/esm-loader/2.1.4:
+    resolution: {integrity: sha512-acfzciUGugu1TV1QHJOAOe6F5miEjQLDYMWhoD4mVPFmwHA8Iwp5UCJidyruj67qp2ybu+Zc++7+th9VnYaZMA==}
     dependencies:
-      '@esbuild-kit/core-utils': 1.2.1
+      '@esbuild-kit/core-utils': 1.3.0
       es-module-lexer: 0.10.5
       get-tsconfig: 3.0.1
     dev: true
@@ -361,8 +361,8 @@ packages:
       '@types/unist': 2.0.6
     dev: true
 
-  /@types/node/17.0.36:
-    resolution: {integrity: sha512-V3orv+ggDsWVHP99K3JlwtH20R7J4IhI1Kksgc+64q5VxgfRkQG8Ws3MFm/FZOKDYGy9feGFlZ70/HpCNe9QaA==}
+  /@types/node/17.0.40:
+    resolution: {integrity: sha512-UXdBxNGqTMtm7hCwh9HtncFVLrXoqA3oJW30j6XWp5BH/wu3mVeaxo7cq5benFdBw34HB3XDT2TRPI7rXZ+mDg==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -780,7 +780,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
 
   /cross-spawn/7.0.3:
@@ -2461,7 +2461,7 @@ packages:
     dev: true
 
   /p-locate/2.0.0:
-    resolution: {integrity: sha1-IKAQOyIqcMj9OcwuWAaA893l7EM=}
+    resolution: {integrity: sha512-nQja7m7gSKuewoVRen45CtVfODR3crN3goVQ0DDZ9N3yHxgpkuBhZqsaiotSQRrADUrne346peY7kT3TSACykg==}
     engines: {node: '>=4'}
     dependencies:
       p-limit: 1.3.0
@@ -2475,7 +2475,7 @@ packages:
     dev: true
 
   /p-try/1.0.0:
-    resolution: {integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=}
+    resolution: {integrity: sha512-U1etNYuMJoIz3ZXSrrySFjsXQTWOx2/jdi86L+2pRvph/qMKL6sbcCYdH23fqsbm8TH2Gn0OybpT4eSFlCVHww==}
     engines: {node: '>=4'}
     dev: true
 
@@ -2513,7 +2513,7 @@ packages:
     dev: true
 
   /path-exists/3.0.0:
-    resolution: {integrity: sha1-zg6+ql94yxiSXqfYENe1mwEP1RU=}
+    resolution: {integrity: sha512-bpC7GYwiDYQ4wYLe+FA8lhRjhQCMcQGuSgGGqDkg/QerRWw9CmGRT0iSOVRSZJ29NMLZgIzqaljJ63oaL4NIJQ==}
     engines: {node: '>=4'}
     dev: true
 
@@ -2698,8 +2698,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup/2.75.3:
-    resolution: {integrity: sha512-YA29fLU6MAYSaDxIQYrGGOcbXlDmG96h0krGGYObroezcQ0KgEPM3+7MtKD/qeuUbFuAJXvKZee5dA1dpwq1PQ==}
+  /rollup/2.75.5:
+    resolution: {integrity: sha512-JzNlJZDison3o2mOxVmb44Oz7t74EfSd1SQrplQk0wSaXV7uLQXtVdHbxlcT3w+8tZ1TL4r/eLfc7nAbz38BBA==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -2974,7 +2974,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 2.75.3
+      rollup: 2.75.5
       source-map: 0.8.0-beta.0
       sucrase: 3.21.0
       tree-kill: 1.2.2
@@ -2999,8 +2999,8 @@ packages:
     hasBin: true
     dependencies:
       '@esbuild-kit/cjs-loader': 2.0.1
-      '@esbuild-kit/core-utils': 1.2.1
-      '@esbuild-kit/esm-loader': 2.1.3
+      '@esbuild-kit/core-utils': 1.3.0
+      '@esbuild-kit/esm-loader': 2.1.4
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -3117,13 +3117,13 @@ packages:
       esbuild: 0.14.42
       postcss: 8.4.14
       resolve: 1.22.0
-      rollup: 2.75.3
+      rollup: 2.75.5
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.14.0:
-    resolution: {integrity: sha512-3Ns7c6TindS6OmweY4dU7sWT7g/YJBenwsMdUMEO/oS81bzoCEaA58vlg/9U1WRjrNFwQYsuyISehAvCKwoMZQ==}
+  /vitest/0.14.1:
+    resolution: {integrity: sha512-2UUm6jYgkwh7Y3VKSRR8OuaNCm+iA5LPDnal7jyITN39maZK9L+JVxqjtQ39PSFo5Fl3/BgaJvER6GGHX9JLxg==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
