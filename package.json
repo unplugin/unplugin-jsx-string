@@ -29,9 +29,12 @@
     "@babel/parser": "^7.18.4",
     "@babel/traverse": "^7.18.2",
     "@babel/types": "^7.18.4",
+    "@rollup/pluginutils": "^4.2.1",
     "entities": "^4.3.0",
     "json5": "^2.2.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "magic-string": "^0.26.2",
+    "unplugin": "^0.7.0"
   },
   "devDependencies": {
     "@sxzz/eslint-config-prettier": "^2.2.2",
@@ -39,6 +42,7 @@
     "@types/babel__traverse": "^7.17.1",
     "@types/lodash": "^4.14.182",
     "@types/node": "*",
+    "@types/react": "^18.0.12",
     "bumpp": "^7.1.1",
     "eslint": "^8.17.0",
     "eslint-define-config": "^1.5.0",
