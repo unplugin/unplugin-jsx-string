@@ -2,7 +2,16 @@
   "name": "unplugin-jsx-string",
   "version": "0.1.0",
   "packageManager": "pnpm@7.1.9",
-  "description": "My awesome typescript library",
+  "description": "Converts JSX to HTML strings at compile time.",
+  "keywords": [
+    "unplugin",
+    "jsx",
+    "tsx",
+    "string",
+    "html",
+    "convert",
+    "react"
+  ],
   "license": "MIT",
   "files": [
     "dist"
