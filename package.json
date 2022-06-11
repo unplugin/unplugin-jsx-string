@@ -49,6 +49,10 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./cores": {
+      "require": "./dist/cores.js",
+      "import": "./dist/cores.mjs"
+    },
     "./*": "./*"
   },
   "typesVersions": {
@@ -81,8 +85,7 @@
     "unplugin": "^0.7.0"
   },
   "devDependencies": {
-    "@sxzz/eslint-config-prettier": "^2.2.2",
-    "@sxzz/eslint-config-ts": "^2.2.2",
+    "@sxzz/eslint-config": "^2.2.2",
     "@types/babel__traverse": "^7.17.1",
     "@types/lodash": "^4.14.182",
     "@types/node": "*",
@@ -95,6 +98,7 @@
     "tsup": "^6.1.0",
     "tsx": "^3.4.2",
     "typescript": "^4.7.3",
+    "vite": "^2.9.12",
     "vitest": "^0.14.1"
   },
   "engines": {

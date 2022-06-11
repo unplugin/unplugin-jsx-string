@@ -4,5 +4,22 @@
   "packageManager": "pnpm@7.1.9",
   "license": "MIT",
   "author": "三咲智子 <sxzz@sxzz.moe>",
-  "scripts": {}
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "vercel-build": "pnpm run -C .. build && pnpm build"
+  },
+  "dependencies": {
+    "@unocss/reset": "^0.38.2",
+    "@vueuse/core": "^8.6.0",
+    "unplugin-jsx-string": "workspace:^0.1.1",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.1.5",
+    "@vitejs/plugin-vue": "^3.0.0-alpha.1",
+    "unocss": "^0.38.2",
+    "vite": "^3.0.0-alpha.10"
+  }
 }

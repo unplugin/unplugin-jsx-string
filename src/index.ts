@@ -45,5 +45,3 @@ export default createUnplugin<Options>((options = {}) => {
     },
   }
 })
-
-export { convert }
