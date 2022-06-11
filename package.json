@@ -13,6 +13,15 @@
     "react"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/sxzz/unplugin-vue#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/unplugin-vue/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/unplugin-vue.git"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],

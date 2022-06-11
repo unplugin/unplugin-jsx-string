@@ -1,0 +1,8 @@
+{
+  "name": "unplugin-jsx-string-playground",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.1.9",
+  "license": "MIT",
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "scripts": {}
+}
