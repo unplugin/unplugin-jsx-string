@@ -19,8 +19,8 @@ const convert = () => {
   }
 }
 
-const copyOutput = () => {
-  copy(result)
+const copyOutput = async () => {
+  await copy(result)
   // eslint-disable-next-line no-alert
   alert('Copied!')
 }
