@@ -13,7 +13,7 @@
   "dependencies": {
     "@unocss/reset": "^0.38.2",
     "@vueuse/core": "^8.6.0",
-    "unplugin-jsx-string": "workspace:^0.1.1",
+    "unplugin-jsx-string": "workspace:*",
     "vue": "^3.2.37"
   },
   "devDependencies": {

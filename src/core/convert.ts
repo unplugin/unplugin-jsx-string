@@ -1,10 +1,12 @@
 import { parse } from '@babel/parser'
-import traverse from '@babel/traverse'
+import { walk } from 'estree-walker'
 import { encode } from 'entities'
 import {
   isArrayExpression,
   isBooleanLiteral,
+  isCallExpression,
   isFunction,
+  isIdentifier,
   isJSX,
   isJSXExpressionContainer,
   isLiteral,
@@ -39,14 +41,16 @@ export const convert = (code: string, debug?: boolean) => {
   })
 
   const nodes: [JSX, Expression][] = []
-  traverse(ast, {
-    CallExpression(path) {
+
+  walk(ast.program, {
+    enter(node: Node) {
+      let arg: Node
       if (
-        path.node.callee.type === 'Identifier' &&
-        path.node.callee.name === 'jsxToString' &&
-        isJSX(path.node.arguments[0])
+        isCallExpression(node) &&
+        isIdentifier(node.callee, { name: 'jsxToString' }) &&
+        isJSX((arg = node.arguments[0]))
       )
-        nodes.push([path.node.arguments[0], path.node])
+        nodes.push([arg, node])
     },
   })
 

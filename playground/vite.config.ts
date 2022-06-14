@@ -28,8 +28,6 @@ export default defineConfig({
     esbuildOptions: {
       define: {
         'process.env.BABEL_TYPES_8_BREAKING': 'false',
-        'process.platform': '"Darwin"',
-        'Buffer.isBuffer': 'undefined',
       },
     },
   },
