@@ -1,5 +1,11 @@
 import JSON5 from 'json5'
-import { kebabCase } from 'lodash'
+
+const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
+export function kebabCase(str: string) {
+  return str.replace(KEBAB_REGEX, (match) => {
+    return `-${match.toLowerCase()}`
+  })
+}
 
 export const styleToString = (styles: Record<string, string>) =>
   Object.entries(styles)

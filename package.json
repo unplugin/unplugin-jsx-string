@@ -81,14 +81,12 @@
     "entities": "^4.3.0",
     "estree-walker": "^2.0.2",
     "json5": "^2.2.1",
-    "lodash": "^4.17.21",
     "magic-string": "^0.26.2",
     "unplugin": "^0.7.0"
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^2.2.2",
     "@types/benchmark": "^2.1.1",
-    "@types/lodash": "^4.14.182",
     "@types/node": "*",
     "@types/react": "^18.0.12",
     "benchmark": "^2.1.4",
