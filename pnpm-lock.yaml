@@ -8,9 +8,11 @@ importers:
       '@babel/types': ^7.18.4
       '@rollup/pluginutils': ^4.2.1
       '@sxzz/eslint-config': ^2.2.2
+      '@types/benchmark': ^2.1.1
       '@types/lodash': ^4.14.182
       '@types/node': '*'
       '@types/react': ^18.0.12
+      benchmark: ^2.1.4
       bumpp: ^7.1.1
       entities: ^4.3.0
       eslint: ^8.17.0
@@ -39,9 +41,11 @@ importers:
       unplugin: 0.7.0_vite@2.9.12
     devDependencies:
       '@sxzz/eslint-config': 2.2.2_eslint@8.17.0
+      '@types/benchmark': 2.1.1
       '@types/lodash': 4.14.182
       '@types/node': 17.0.40
       '@types/react': 18.0.12
+      benchmark: 2.1.4
       bumpp: 7.1.1
       eslint: 8.17.0
       eslint-define-config: 1.5.0
@@ -325,6 +329,10 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
+    dev: true
+
+  /@types/benchmark/2.1.1:
+    resolution: {integrity: sha512-XmdNOarpSSxnb3DE2rRFOFsEyoqXLUL+7H8nSGS25vs+JS0018bd+cW5Ma9vdlkPmoTHSQ6e8EUFMFMxeE4l+g==}
     dev: true
 
   /@types/chai-subset/1.3.3:
@@ -853,6 +861,13 @@ packages:
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+    dev: true
+
+  /benchmark/2.1.4:
+    resolution: {integrity: sha512-l9MlfN4M1K/H2fbhfMy3B7vJd6AGKJVQn2h6Sg/Yx+KckoUA7ewS5Vv6TjSq18ooE1kS9hhAlQRH3AkXIh/aOQ==}
+    dependencies:
+      lodash: 4.17.21
+      platform: 1.3.6
     dev: true
 
   /binary-extensions/2.2.0:
@@ -2960,6 +2975,10 @@ packages:
       jsonc-parser: 3.0.0
       mlly: 0.3.19
       pathe: 0.2.0
+    dev: true
+
+  /platform/1.3.6:
+    resolution: {integrity: sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==}
     dev: true
 
   /pluralize/8.0.0:

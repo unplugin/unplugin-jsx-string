@@ -123,6 +123,20 @@ jsxToString(
 // "<div><p>foo</p><p>bar</p><br/><div/>123</div>"
 ```
 
+
+## Benchmark
+
+```
+<div>Hello World</div> x 73,893 ops/sec ±0.76% (91 runs sampled)
+<div><img src={'foo'} /><div></div></div> x 52,859 ops/sec ±0.77% (93 runs sampled)
+```
+
+<small>
+Tested on Apple M1 Max / 32GB
+
+*More samples are welcome.*
+</small>
+
 ## Sponsors
 
 <p align="center">

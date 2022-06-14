@@ -71,6 +71,7 @@
     "build": "tsup && tsx scripts/postbuild.mts",
     "test": "vitest",
     "release": "bumpp --commit --push --tag && pnpm publish",
+    "benchmark": "node benchmark/index.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
@@ -86,9 +87,11 @@
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^2.2.2",
+    "@types/benchmark": "^2.1.1",
     "@types/lodash": "^4.14.182",
     "@types/node": "*",
     "@types/react": "^18.0.12",
+    "benchmark": "^2.1.4",
     "bumpp": "^7.1.1",
     "eslint": "^8.17.0",
     "eslint-define-config": "^1.5.0",
