@@ -178,4 +178,14 @@ describe('convert', () => {
       )
     })
   })
+
+  test('special characters', () => {
+    expect(
+      jsxToString(
+        <div>
+          `///\\\\`${233}${'foo'}
+        </div>
+      )
+    ).toMatchInlineSnapshot('"<div>`///\\\\\\\\\\\\\\\\`$233$foo</div>"')
+  })
 })
