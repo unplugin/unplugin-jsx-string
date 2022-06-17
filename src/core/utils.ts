@@ -1,4 +1,5 @@
 import JSON5 from 'json5'
+import jsesc from 'jsesc'
 
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 export function kebabCase(str: string) {
@@ -21,3 +22,5 @@ export const normalizeObjectString = (text: string) => {
     )
   }
 }
+
+export const escapeString = (str: string) => `'${jsesc(str)}'`

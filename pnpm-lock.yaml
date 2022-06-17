@@ -9,6 +9,7 @@ importers:
       '@rollup/pluginutils': ^4.2.1
       '@sxzz/eslint-config': ^2.2.2
       '@types/benchmark': ^2.1.1
+      '@types/jsesc': ^3.0.1
       '@types/node': '*'
       '@types/react': ^18.0.12
       benchmark: ^2.1.4
@@ -18,6 +19,7 @@ importers:
       eslint-define-config: ^1.5.0
       estree-walker: ^2.0.2
       fast-glob: ^3.2.11
+      jsesc: ^3.0.2
       json5: ^2.2.1
       magic-string: ^0.26.2
       prettier: ^2.6.2
@@ -33,12 +35,14 @@ importers:
       '@rollup/pluginutils': 4.2.1
       entities: 4.3.0
       estree-walker: 2.0.2
+      jsesc: 3.0.2
       json5: 2.2.1
       magic-string: 0.26.2
       unplugin: 0.7.0_vite@2.9.12
     devDependencies:
       '@sxzz/eslint-config': 2.2.2_eslint@8.17.0
       '@types/benchmark': 2.1.1
+      '@types/jsesc': 3.0.1
       '@types/node': 17.0.40
       '@types/react': 18.0.12
       benchmark: 2.1.4
@@ -339,6 +343,10 @@ packages:
 
   /@types/chai/4.3.1:
     resolution: {integrity: sha512-/zPMqDkzSZ8t3VtxOa4KPq7uzzW978M9Tvh+j7GHKuo6k6GTLxPJ4J5gE5cjfJ26pnXst0N5Hax8Sr0T2Mi9zQ==}
+    dev: true
+
+  /@types/jsesc/3.0.1:
+    resolution: {integrity: sha512-F2g93pJlhV0RlW9uSUAM/hIxywlwlZcuRB/nZ82GaMPaO8mdexYbJ8Qt3UGbUS1M19YFQykEetrWW004M+vPCg==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -2473,6 +2481,12 @@ packages:
     dependencies:
       argparse: 2.0.1
     dev: true
+
+  /jsesc/3.0.2:
+    resolution: {integrity: sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==}
+    engines: {node: '>=6'}
+    hasBin: true
+    dev: false
 
   /json-parse-even-better-errors/2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}

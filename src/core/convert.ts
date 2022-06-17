@@ -14,7 +14,7 @@ import {
   isStringLiteral,
 } from '@babel/types'
 import MagicString from 'magic-string'
-import { normalizeObjectString, styleToString } from './utils'
+import { escapeString, normalizeObjectString, styleToString } from './utils'
 import type {
   Expression,
   JSX,
@@ -74,10 +74,6 @@ export const convert = (code: string, debug?: boolean) => {
     get map() {
       return s.generateMap()
     },
-  }
-
-  function escapeString(str: string) {
-    return `\`${str.replaceAll('`', '\\`').replaceAll('$', '\\$')}\``
   }
 
   function jsxToString(node: JSX): string {
