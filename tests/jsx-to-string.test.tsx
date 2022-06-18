@@ -1,18 +1,19 @@
+/* eslint-disable no-void */
+/* eslint-disable no-constant-condition */
+/* eslint-disable prefer-template */
 import { describe, expect, test } from 'vitest'
 
-let n = 1
-const s = 'str'
-
-describe('convert', () => {
+describe('jsxToString', () => {
   test('basic usage', () => {
     expect(jsxToString(<div>Hello</div>)).toMatchInlineSnapshot(
       '"<div>Hello</div>"'
     )
     expect(jsxToString(<div />)).toMatchInlineSnapshot('"<div/>"')
+    expect(jsxToString(<>Hello</>)).toMatchInlineSnapshot('"Hello"')
   })
 
-  describe('with attribute', () => {
-    test('basic', () => {
+  describe('element attribute', () => {
+    test('basic usage', () => {
       // @ts-expect-error
       expect(jsxToString(<div id={1} />)).toMatchInlineSnapshot(
         '"<div id=\\"1\\"/>"'
@@ -20,6 +21,12 @@ describe('convert', () => {
       expect(jsxToString(<div className={`hello`} />)).toMatchInlineSnapshot(
         '"<div class=\\"hello\\"/>"'
       )
+    })
+
+    test('evaluate', () => {
+      expect(
+        jsxToString(<div className={`hello` + 'hello'} />)
+      ).toMatchInlineSnapshot('"<div class=\\"hellohello\\"/>"')
       expect(
         // @ts-expect-error
         jsxToString(<div data-id={{ id: 1 + 2 + true }} />)
@@ -27,8 +34,10 @@ describe('convert', () => {
     })
 
     test('attribute name', () => {
-      expect(jsxToString(<div aria-label="Close" />)).toMatchInlineSnapshot(
-        '"<div aria-label=\\"Close\\"/>"'
+      expect(
+        jsxToString(<div aria-label="Close" id="ok✅" />)
+      ).toMatchInlineSnapshot(
+        '"<div aria-label=\\"Close\\" id=\\"ok&#x2705;\\"/>"'
       )
     })
 
@@ -106,20 +115,21 @@ describe('convert', () => {
     })
   })
 
-  describe('with children', () => {
-    test('basic', () => {
-      expect(
-        jsxToString(
-          <div>
-            <p>foo</p>
-            <p>bar</p>
-            <br />
-            <div />
-            123
-          </div>
-        )
-      ).toMatchInlineSnapshot('"<div><p>foo</p><p>bar</p><br/><div/>123</div>"')
-    })
+  test('element children', () => {
+    expect(
+      jsxToString(
+        <div>
+          <p>foo</p>
+          <p>bar</p>
+          <br />
+          <div />
+          123
+          <>foo</>
+        </div>
+      )
+    ).toMatchInlineSnapshot(
+      '"<div><p>foo</p><p>bar</p><br/><div/>123foo</div>"'
+    )
   })
 
   test('space', () => {
@@ -148,65 +158,102 @@ describe('convert', () => {
     )
   })
 
-  test('BinaryExpression', () => {
-    // eslint-disable-next-line prefer-template
-    expect(jsxToString(<>{`a` + 1 + 'b'}</>)).toMatchInlineSnapshot('"a1b"')
-    // eslint-disable-next-line prefer-template
-    expect(jsxToString(<>{`a` + true + false + 'b'}</>)).toMatchInlineSnapshot(
-      '"atruefalseb"'
-    )
-    // @ts-expect-error
-    expect(jsxToString(<>{1 + 2 + true}</>)).toMatchInlineSnapshot('"4"')
-  })
+  describe('AST', () => {
+    describe('Literal', () => {
+      test('Primitive Literal', () => {
+        expect(jsxToString(<>{122}</>)).toMatchInlineSnapshot('"122"')
+        expect(jsxToString(<>{'false"'}</>)).toMatchInlineSnapshot('"false\\""')
+        expect(jsxToString(<>{false}</>)).toMatchInlineSnapshot('"false"')
+        expect(jsxToString(<>{null}</>)).toMatchInlineSnapshot('"null"')
+      })
 
-  describe('Literal', () => {
-    test('TemplateLiteral', () => {
-      expect(jsxToString(<>{`basic`}</>)).toMatchInlineSnapshot('"basic"')
-      expect(jsxToString(<>{`1${1}${2}b`}</>)).toMatchInlineSnapshot('"112b"')
-      expect(jsxToString(<>{`1${1 + 2 + 3}b`}</>)).toMatchInlineSnapshot(
-        '"16b"'
-      )
-      expect(
-        jsxToString(
-          // @ts-expect-error
-          <>{`a${true}${false}b${null}${true + 1 + 2 + false}${
-            // @ts-expect-error
-            null + 1
-          }${[]}${{}}`}</>
+      test('TemplateLiteral', () => {
+        expect(jsxToString(<>{`basic`}</>)).toMatchInlineSnapshot('"basic"')
+        expect(jsxToString(<>{`1${1}${2}b`}</>)).toMatchInlineSnapshot('"112b"')
+        expect(jsxToString(<>{`1${1 + 2 + 3}b`}</>)).toMatchInlineSnapshot(
+          '"16b"'
         )
-      ).toBe(
-        // @ts-expect-error
-        `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}${[]}${{}}`
-      )
+        expect(
+          jsxToString(
+            // @ts-expect-error
+            <>{`a${true}${false}b${null}${true + 1 + 2 + false}${
+              // @ts-expect-error
+              null + 1
+            }${[]}${{}}`}</>
+          )
+        ).toBe(
+          // @ts-expect-error
+          `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}${[]}${{}}`
+        )
+      })
+
+      test('BigIntLiteral', () => {
+        expect(jsxToString(<>{1n}</>)).toMatchInlineSnapshot('"1"')
+        expect(
+          jsxToString(<>{100012301203123123123123n}</>)
+        ).toMatchInlineSnapshot('"100012301203123123123123"')
+      })
+
+      test('Object/Array Literal', () => {
+        expect(jsxToString(<>{{}}</>)).toMatchInlineSnapshot('"{}"')
+        expect(jsxToString(<>{[{ foo: 'bar' }]}</>)).toMatchInlineSnapshot(
+          '"[{\\"foo\\":\\"bar\\"}]"'
+        )
+      })
+
+      test('RegExpLiteral', () => {
+        expect(jsxToString(<>{/a(.*)/g}</>)).toMatchInlineSnapshot('"/a(.*)/g"')
+      })
     })
 
-    test('BigIntLiteral', () => {
-      expect(jsxToString(<>{1n}</>)).toMatchInlineSnapshot('"1"')
+    test('BinaryExpression', () => {
+      expect(jsxToString(<>{`a` + 1 + 'b'}</>)).toMatchInlineSnapshot('"a1b"')
       expect(
-        jsxToString(<>{100012301203123123123123n}</>)
-      ).toMatchInlineSnapshot('"100012301203123123123123"')
-    })
-
-    test('Primitive Literal', () => {
-      expect(jsxToString(<>{122}</>)).toMatchInlineSnapshot('"122"')
-      expect(jsxToString(<>{'false"'}</>)).toMatchInlineSnapshot('"false\\""')
-      expect(jsxToString(<>{false}</>)).toMatchInlineSnapshot('"false"')
-      expect(jsxToString(<>{null}</>)).toMatchInlineSnapshot('"null"')
-    })
-
-    test('Object/Array Literal', () => {
-      expect(jsxToString(<>{{}}</>)).toMatchInlineSnapshot('"{}"')
-      expect(jsxToString(<>{[{ foo: 'bar' }]}</>)).toMatchInlineSnapshot(
-        '"[{\\"foo\\":\\"bar\\"}]"'
+        jsxToString(<>{`a` + true + false + 'b'}</>)
+      ).toMatchInlineSnapshot('"atruefalseb"')
+      // @ts-expect-error
+      expect(jsxToString(<>{1 + 2 + true}</>)).toMatchInlineSnapshot('"4"')
+      expect(jsxToString(<>{1 - 2 + 3 / 5}</>)).toMatchInlineSnapshot('"-0.4"')
+      expect(jsxToString(<>{2 ** 2}</>)).toMatchInlineSnapshot('"4"')
+      expect(jsxToString(<>{false || 2}</>)).toMatchInlineSnapshot('"2"')
+      expect(jsxToString(<>{null ?? 'foo'}</>)).toMatchInlineSnapshot('"foo"')
+      expect(jsxToString(<>{1 && (false || 0.2)}</>)).toMatchInlineSnapshot(
+        '"0.2"'
+      )
+      expect(jsxToString(<>{false === false}</>)).toMatchInlineSnapshot(
+        '"true"'
       )
     })
 
-    test('RegExpLiteral', () => {
-      expect(jsxToString(<>{/a(.*)/g}</>)).toMatchInlineSnapshot('"/a(.*)/g"')
+    test('UnaryExpression', () => {
+      expect(jsxToString(<>{!false}</>)).toMatchInlineSnapshot('"true"')
+      expect(jsxToString(<>{typeof false}</>)).toMatchInlineSnapshot(
+        '"boolean"'
+      )
+      expect(jsxToString(<>{~100}</>)).toMatchInlineSnapshot('"-101"')
+      expect(jsxToString(<>{+-100}</>)).toMatchInlineSnapshot('"-100"')
+      expect(jsxToString(<>{'foo' in { foo: true }}</>)).toMatchInlineSnapshot(
+        '"true"'
+      )
+    })
+
+    test('ConditionalExpression', () => {
+      expect(jsxToString(<>{'1' ? 1 : 2}</>)).toMatchInlineSnapshot('"1"')
+      expect(jsxToString(<>{void 1 ? 1 : 2}</>)).toMatchInlineSnapshot('"2"')
+    })
+
+    test('SequenceExpression', () => {
+      // @ts-expect-error
+      expect(jsxToString(<>{(1, 2, 3)}</>)).toMatchInlineSnapshot('"3"')
+    })
+
+    test('TSNonNullExpression', () => {
+      // eslint-disable-next-line @typescript-eslint/no-extra-non-null-assertion
+      expect(jsxToString(<>{1!!!!!}</>)).toMatchInlineSnapshot('"1"')
     })
   })
 
-  describe('error', () => {
+  describe('throw error', () => {
     test('without function', () => {
       expect(() => <div />).toThrowError()
       // @ts-expect-error
@@ -214,6 +261,9 @@ describe('convert', () => {
     })
 
     test('unsupported', () => {
+      let n = 1
+      const s = 'str'
+
       expect(() =>
         jsxToString(<div id={`a${s}`} />)
       ).toThrowErrorMatchingInlineSnapshot(
@@ -256,13 +306,5 @@ describe('convert', () => {
         </div>
       )
     ).toMatchInlineSnapshot('"<div>`///\\\\\\\\\\\\\\\\`$233$foo</div>"')
-  })
-
-  test('reference variable', () => {
-    let i = 0
-    expect(
-      jsxToString(<div className={jsxRaw(i++)}>Hello</div>)
-    ).toMatchInlineSnapshot('"<div class=\\"0\\">Hello</div>"')
-    expect(jsxToString(<>{jsxRaw(i++)}</>)).toMatchInlineSnapshot('"1"')
   })
 })

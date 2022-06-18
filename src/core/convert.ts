@@ -237,6 +237,7 @@ function transformJsx(code: string, node: JSX) {
       case 'ObjectExpression':
         return resolveObjectExpression(node)
       case 'BinaryExpression':
+      case 'LogicalExpression':
         return resolveBinary(node)
       case 'UnaryExpression':
         return resolveUnaryExpression(node)
