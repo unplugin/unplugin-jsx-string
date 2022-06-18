@@ -37,7 +37,10 @@ import type {
   TemplateLiteral,
 } from '@babel/types'
 
-export const convert = (code: string, { debug, plugins }: OptionsResolved) => {
+export const convert = (
+  code: string,
+  { debug, plugins }: Pick<OptionsResolved, 'debug' | 'plugins'>
+) => {
   const ast = parse(code, {
     sourceType: 'module',
     plugins,

@@ -13,7 +13,10 @@ let result = $ref('')
 
 const convert = () => {
   try {
-    result = convertCode(code, true).code
+    result = convertCode(code, {
+      debug: true,
+      plugins: ['jsx', 'typescript'],
+    }).code
   } catch (err: any) {
     result = err.toString()
   }
