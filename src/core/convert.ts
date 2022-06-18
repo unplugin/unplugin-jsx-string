@@ -218,7 +218,7 @@ export const convert = (code: string, debug?: boolean) => {
 
   function resolveExpression(
     node: Expression | JSXEmptyExpression | PrivateName | TSType
-  ): string | number | boolean {
+  ): string | number | boolean | null {
     if (isLiteral(node)) {
       return resolveLiteral(node)
     } else if (isJSX(node)) {
@@ -239,12 +239,12 @@ export const convert = (code: string, debug?: boolean) => {
     }
   }
 
-  function resolveLiteral(node: Literal): string | number | boolean {
+  function resolveLiteral(node: Literal): string | number | boolean | null {
     switch (node.type) {
       case 'TemplateLiteral':
         return templateLiteralToString(node)
       case 'NullLiteral':
-        return ''
+        return null
 
       case 'BigIntLiteral':
       case 'DecimalLiteral':

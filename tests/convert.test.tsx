@@ -152,8 +152,14 @@ describe('convert', () => {
     expect(jsxToString(<>{`basic`}</>)).toMatchInlineSnapshot('"basic"')
     expect(jsxToString(<>{`1${1}${2}b`}</>)).toMatchInlineSnapshot('"112b"')
     expect(jsxToString(<>{`1${1 + 2 + 3}b`}</>)).toMatchInlineSnapshot('"16b"')
-    expect(jsxToString(<>{`a${true}${false}b`}</>)).toMatchInlineSnapshot(
-      '"atruefalseb"'
+    expect(
+      jsxToString(
+        // @ts-expect-error
+        <>{`a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}`}</>
+      )
+    ).toBe(
+      // @ts-expect-error
+      `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}`
     )
   })
 
