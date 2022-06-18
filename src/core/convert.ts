@@ -31,6 +31,7 @@ import type {
   JSXText,
   Literal,
   Node,
+  PrivateName,
   TemplateLiteral,
 } from '@babel/types'
 
@@ -214,7 +215,9 @@ export const convert = (code: string, debug?: boolean) => {
     return value
   }
 
-  function expressionToString(node: Expression | JSXEmptyExpression) {
+  function expressionToString(
+    node: Expression | JSXEmptyExpression | PrivateName
+  ): string {
     if (isLiteral(node)) {
       return literalToString(node)
     } else if (isJSX(node)) {
@@ -223,9 +226,11 @@ export const convert = (code: string, debug?: boolean) => {
 
     switch (node.type) {
       case 'ArrayExpression':
-      case 'ObjectExpression': {
+      case 'ObjectExpression':
         return normalizeObjectString(getSource(node))
-      }
+
+      case 'BinaryExpression':
+        return expressionToString(node.left) + expressionToString(node.right)
 
       default:
         return notSupported(node)

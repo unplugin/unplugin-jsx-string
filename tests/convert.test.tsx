@@ -137,6 +137,15 @@ describe('convert', () => {
     )
   })
 
+  test('BinaryExpression', () => {
+    // eslint-disable-next-line prefer-template
+    expect(jsxToString(<>{`a` + 1 + 'b'}</>)).toMatchInlineSnapshot('"a1b"')
+    // eslint-disable-next-line prefer-template
+    expect(jsxToString(<>{`a` + true + false + 'b'}</>)).toMatchInlineSnapshot(
+      '"ab"'
+    )
+  })
+
   describe('error', () => {
     test('without function', () => {
       expect(() => <div />).toThrowError()
@@ -159,11 +168,6 @@ describe('convert', () => {
         jsxToString(<div tabIndex={n} />)
       ).toThrowErrorMatchingInlineSnapshot(
         '"Error: not supported Identifier: n"'
-      )
-      expect(() =>
-        jsxToString(<div id={'a' + 'b'} />)
-      ).toThrowErrorMatchingInlineSnapshot(
-        "\"Error: not supported BinaryExpression: 'a' + 'b'\""
       )
       expect(() =>
         jsxToString(<div tabIndex={n++} />)
