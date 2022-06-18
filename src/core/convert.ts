@@ -243,6 +243,12 @@ function transformJsx(code: string, node: JSX) {
         return resolveExpression(node.test)
           ? resolveExpression(node.consequent)
           : resolveExpression(node.alternate)
+      case 'SequenceExpression': {
+        const expressions = node.expressions.map((expr) =>
+          resolveExpression(expr)
+        )
+        return expressions.slice(-1)[0]
+      }
       default:
         return notSupported(node)
     }
