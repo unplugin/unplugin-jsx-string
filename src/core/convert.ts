@@ -23,6 +23,7 @@ import type { Primitive } from './utils'
 import type { OptionsResolved } from './options'
 import type {
   ArrayExpression,
+  Binary,
   Expression,
   JSX,
   JSXAttribute,
@@ -234,11 +235,82 @@ function transformJsx(code: string, node: JSX) {
       case 'ObjectExpression':
         return resolveObjectExpression(node)
       case 'BinaryExpression':
-        // @ts-expect-error
-        return resolveExpression(node.left) + resolveExpression(node.right)
+        return resolveBinary(node)
 
       default:
         return notSupported(node)
+    }
+  }
+
+  function resolveBinary(node: Binary) {
+    const left: any = resolveExpression(node.left)
+    const right: any = resolveExpression(node.right)
+    switch (node.operator) {
+      case '+':
+        return left + right
+      case '-':
+        return left - right
+      case '*':
+        return left * right
+      case '/':
+        return left / right
+
+      // Logical operators
+      case '&&':
+        return left && right
+      case '||':
+        return left || right
+      case '??':
+        return left ?? right
+
+      // Comparison operators
+      case '==':
+        return left == right
+      case '!=':
+        return left != right
+      case '===':
+        return left === right
+      case '!==':
+        return left !== right
+
+      case '>':
+        return left > right
+      case '>=':
+        return left >= right
+
+      case '<':
+        return left < right
+      case '<=':
+        return left <= right
+
+      // Arithmetic operators
+      case '%':
+        return left % right
+      case '**':
+        return left ** right
+
+      // Bitwise operators
+      case '&':
+        return left & right
+      case '|':
+        return left | right
+      case '^':
+        return left ^ right
+      case '<<':
+        return left << right
+      case '>>':
+        return left >> right
+      case '>>>':
+        return left >>> right
+
+      // Relational operators
+      case 'in':
+        return left in right
+      case 'instanceof':
+        return left instanceof right
+
+      default:
+        notSupported(node)
     }
   }
 
