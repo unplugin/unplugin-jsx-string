@@ -249,6 +249,8 @@ function transformJsx(code: string, node: JSX) {
         )
         return expressions.slice(-1)[0]
       }
+      case 'TSNonNullExpression':
+        return resolveExpression(node.expression)
       default:
         return notSupported(node)
     }
