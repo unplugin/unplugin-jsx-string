@@ -5,8 +5,13 @@ const { copy } = useClipboard()
 
 const code = $ref(
   `
-console.log(jsxToString(<div>Hello</div>))
-console.log(jsxToString(<div className={\`Hello\` + ' World ' + true} />))
+const t = Date.now()
+console.log(jsxToString(<div>Now: { true ? jsxRaw(Math.trunc(t / 1000)) : 'never!'}</div>))
+console.log(jsxToString(<div className={[
+  \`Hello\` + 'World' + true,
+  'foo',
+  'bar',
+]} />))
 `.trim()
 )
 let result = $ref('')
