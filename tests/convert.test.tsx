@@ -180,6 +180,11 @@ describe('convert', () => {
         '"Error: not supported Identifier: s"'
       )
       expect(() =>
+        jsxToString(<div id={undefined} />)
+      ).toThrowErrorMatchingInlineSnapshot(
+        '"Error: not supported Identifier: undefined"'
+      )
+      expect(() =>
         jsxToString(<div>{...[]}</div>)
       ).toThrowErrorMatchingInlineSnapshot(
         '"Error: not supported JSXSpreadChild: {...[]}"'
