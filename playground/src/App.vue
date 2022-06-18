@@ -6,7 +6,7 @@ const { copy } = useClipboard()
 const code = $ref(
   `
 console.log(jsxToString(<div>Hello</div>))
-console.log(jsxToString(<div className={\`hello\`} />))
+console.log(jsxToString(<div className={\`Hello\` + ' World ' + true} />))
 `.trim()
 )
 let result = $ref('')
