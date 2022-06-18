@@ -239,6 +239,10 @@ function transformJsx(code: string, node: JSX) {
         return resolveBinary(node)
       case 'UnaryExpression':
         return resolveUnaryExpression(node)
+      case 'ConditionalExpression':
+        return resolveExpression(node.test)
+          ? resolveExpression(node.consequent)
+          : resolveExpression(node.alternate)
       default:
         return notSupported(node)
     }
