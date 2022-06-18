@@ -1,1 +1,1 @@
-export { convert } from './core/convert'
+export { transformJsxToString } from './core/convert'

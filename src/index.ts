@@ -1,6 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
-import { convert } from './core/convert'
+import { transformJsxToString } from './core/convert'
 import { resolveOption } from './core/options'
 import type { Options } from './core/options'
 
@@ -23,7 +23,7 @@ export default createUnplugin<Options>((options = {}) => {
 
     transform(code) {
       try {
-        return convert(code, opt)
+        return transformJsxToString(code, opt)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

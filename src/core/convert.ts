@@ -18,6 +18,7 @@ import {
   isPrimitive,
   styleToString,
 } from './utils'
+import type { ParserPlugin } from '@babel/parser'
 import type { Primitive } from './utils'
 import type { OptionsResolved } from './options'
 import type {
@@ -40,23 +41,18 @@ import type {
   TemplateLiteral,
 } from '@babel/types'
 
-type ResolvedValue =
+export type EvaluatedValue =
   | Exclude<Primitive, symbol>
   | RegExp
   | Record<any, any>
   | any[]
 
-export const convert = (
-  code: string,
-  { debug, plugins }: Pick<OptionsResolved, 'debug' | 'plugins'>
-) => {
+function extractJsx(code: string, plugins: ParserPlugin[]) {
   const ast = parse(code, {
     sourceType: 'module',
     plugins,
   })
-
   const nodes: [JSX, Expression][] = []
-
   walk(ast.program, {
     enter(node: Node) {
       let arg: Node
@@ -69,33 +65,17 @@ export const convert = (
     },
   })
 
-  const s = new MagicString(code)
-  for (const [node, expr] of nodes) {
-    let str: string
-    if (!debug) {
-      str = escapeString(jsxToString(node))
-    } else {
-      try {
-        str = escapeString(jsxToString(node))
-      } catch (err: any) {
-        str = `(() => { throw new Error(${escapeString(err.toString())}) })()`
-      }
-    }
-    s.overwrite(expr.start!, expr.end!, str)
+  return nodes
+}
+
+function transformJsx(code: string, node: JSX) {
+  return escapeString(toStringJsx(node))
+
+  function toStringJsx(node: JSX): string {
+    return toStringExpression(resolveJsx(node))
   }
 
-  return {
-    code: s.toString(),
-    get map() {
-      return s.generateMap()
-    },
-  }
-
-  function jsxToString(node: JSX): string {
-    return expressionToString(resolveJsx(node))
-  }
-
-  function expressionToString(expr: ResolvedValue) {
+  function toStringExpression(expr: EvaluatedValue) {
     if (expr instanceof RegExp) {
       return expr.toString()
     } else if (typeof expr === 'object') {
@@ -104,29 +84,19 @@ export const convert = (
     return String(expr)
   }
 
-  function resolveJsx(node: JSX): ResolvedValue {
-    switch (node.type) {
-      case 'JSXElement':
-        return jsxElementToString(node)
-      case 'JSXFragment':
-        return jsxChildrenToString(node.children)
-      case 'JSXText':
-        return jsxTextToString(node)
-      case 'JSXEmptyExpression':
-        return (
-          node.innerComments
-            ?.map((comment) => `<!--${comment.value}-->`)
-            .join('') ?? ''
-        )
-      case 'JSXExpressionContainer': {
-        return resolveExpression(node.expression)
-      }
-      default:
-        return notSupported(node)
-    }
+  function toStringJsxChildren(
+    nodes: Array<
+      | JSXText
+      | JSXExpressionContainer
+      | JSXSpreadChild
+      | JSXElement
+      | JSXFragment
+    >
+  ) {
+    return nodes.map((child) => toStringJsx(child)).join('')
   }
 
-  function jsxTextToString(node: JSXText) {
+  function toStringJsxText(node: JSXText) {
     const texts = node.value.split('\n')
 
     return texts
@@ -138,60 +108,48 @@ export const convert = (
       .join(' ')
   }
 
-  function jsxElementToString(node: JSXElement) {
+  function toStringJsxElement(node: JSXElement) {
     if (node.openingElement.selfClosing) {
-      return jsxOpeningElementToString(node.openingElement)
+      return toStringOpeningElement(node.openingElement)
     } else {
-      const children = jsxChildrenToString(node.children)
-      return `${jsxOpeningElementToString(
+      const children = toStringJsxChildren(node.children)
+      return `${toStringOpeningElement(
         node.openingElement
-      )}${children}</${jsxNameToString(node.closingElement!.name)}>`
+      )}${children}</${toStringJsxName(node.closingElement!.name)}>`
+    }
+
+    function toStringOpeningElement(node: JSXOpeningElement) {
+      let str = `<${toStringJsxName(node.name)}`
+
+      const props: string[] = node.attributes
+        .map((attr) => {
+          if (attr.type === 'JSXAttribute') {
+            return toStringJsxAttribute(attr)
+          } else {
+            return notSupported(node)
+          }
+        })
+        .filter((x): x is string => x !== undefined)
+
+      if (props.length > 0) {
+        str += ` ${props.join(' ')}`
+      }
+
+      str += node.selfClosing ? '/>' : '>'
+
+      return str
     }
   }
 
-  function jsxChildrenToString(
-    nodes: Array<
-      | JSXText
-      | JSXExpressionContainer
-      | JSXSpreadChild
-      | JSXElement
-      | JSXFragment
-    >
-  ) {
-    return nodes.map((child) => jsxToString(child)).join('')
-  }
-
-  function jsxOpeningElementToString(node: JSXOpeningElement) {
-    let str = `<${jsxNameToString(node.name)}`
-
-    const props: string[] = node.attributes
-      .map((attr) => {
-        if (attr.type === 'JSXAttribute') {
-          return jsxAttributeToString(attr)
-        } else {
-          return notSupported(node)
-        }
-      })
-      .filter((x): x is string => x !== undefined)
-
-    if (props.length > 0) {
-      str += ` ${props.join(' ')}`
-    }
-
-    str += node.selfClosing ? '/>' : '>'
-
-    return str
-  }
-
-  function jsxAttributeToString(node: JSXAttribute) {
-    let name = jsxNameToString(node.name)
+  function toStringJsxAttribute(node: JSXAttribute) {
+    let name = toStringJsxName(node.name)
 
     if (name === 'className') name = 'class'
     else if (name.startsWith('on')) name = name.toLowerCase()
 
     let value: string | undefined
     if (node.value) {
-      const rawValue = jsxAttrValueToString(node.value, name)
+      const rawValue = toStringJsxAttributeValue(node.value, name)
       if (rawValue === null) {
         return undefined
       }
@@ -201,23 +159,13 @@ export const convert = (
     return `${name}${value !== undefined ? `="${encode(value)}"` : ''}`
   }
 
-  function jsxNameToString(
-    node: JSXIdentifier | JSXMemberExpression | JSXNamespacedName
-  ) {
-    if (node.type === 'JSXIdentifier') {
-      return node.name
-    } else {
-      return notSupported(node)
-    }
-  }
-
-  function jsxAttrValueToString(
+  function toStringJsxAttributeValue(
     node: NonNullable<JSXAttribute['value']>,
     key: string
   ): string | undefined | null {
     // undefined for omiting attribute value
     // null for ignoring whole attribute
-    let value: ResolvedValue | undefined | null
+    let value: EvaluatedValue | undefined | null
 
     // foo={true}
     if (isJSXExpressionContainer(node) && isBooleanLiteral(node.expression)) {
@@ -241,21 +189,50 @@ export const convert = (
     }
 
     if (value === undefined || value === null) return value
-    return expressionToString(value)
+    return toStringExpression(value)
   }
 
-  function resolveExpression(node: Node): ResolvedValue {
+  function toStringJsxName(
+    node: JSXIdentifier | JSXMemberExpression | JSXNamespacedName
+  ) {
+    if (node.type === 'JSXIdentifier') return node.name
+    return notSupported(node)
+  }
+
+  function resolveJsx(node: JSX): EvaluatedValue {
+    switch (node.type) {
+      case 'JSXElement':
+        return toStringJsxElement(node)
+      case 'JSXFragment':
+        return toStringJsxChildren(node.children)
+      case 'JSXText':
+        return toStringJsxText(node)
+      case 'JSXEmptyExpression':
+        return (
+          node.innerComments
+            ?.map((comment) => `<!--${comment.value}-->`)
+            .join('') ?? ''
+        )
+      case 'JSXExpressionContainer': {
+        return resolveExpression(node.expression)
+      }
+      default:
+        return notSupported(node)
+    }
+  }
+
+  function resolveExpression(node: Node): EvaluatedValue {
     if (isLiteral(node)) {
       return resolveLiteral(node)
     } else if (isJSX(node)) {
-      return jsxToString(node)
+      return resolveJsx(node)
     }
 
     switch (node.type) {
       case 'ArrayExpression':
-        return resolveArray(node)
+        return resolveArrayExpression(node)
       case 'ObjectExpression':
-        return resolveObject(node)
+        return resolveObjectExpression(node)
       case 'BinaryExpression':
         // @ts-expect-error
         return resolveExpression(node.left) + resolveExpression(node.right)
@@ -265,10 +242,10 @@ export const convert = (
     }
   }
 
-  function resolveLiteral(node: Literal): ResolvedValue {
+  function resolveLiteral(node: Literal): EvaluatedValue {
     switch (node.type) {
       case 'TemplateLiteral':
-        return templateLiteralToString(node)
+        return resolveTemplateLiteral(node)
       case 'NullLiteral':
         return null
       case 'BigIntLiteral':
@@ -286,7 +263,7 @@ export const convert = (
     }
   }
 
-  function resolveArray(node: ArrayExpression) {
+  function resolveArrayExpression(node: ArrayExpression) {
     const items: any[] = []
     for (const [i, element] of node.elements.entries()) {
       if (element) items[i] = resolveExpression(element)
@@ -294,7 +271,7 @@ export const convert = (
     return items
   }
 
-  function resolveObject(node: ObjectExpression) {
+  function resolveObjectExpression(node: ObjectExpression) {
     const obj: Record<any, any> = {}
     for (const prop of node.properties) {
       if (prop.type !== 'ObjectProperty') return notSupported(prop)
@@ -312,7 +289,7 @@ export const convert = (
     return obj
   }
 
-  function templateLiteralToString(node: TemplateLiteral) {
+  function resolveTemplateLiteral(node: TemplateLiteral) {
     return node.quasis.reduce((prev, curr, idx) => {
       if (node.expressions[idx]) {
         return (
@@ -329,5 +306,34 @@ export const convert = (
 
   function notSupported(node: Node): never {
     throw new Error(`not supported ${node.type}: ${getSource(node)}`)
+  }
+}
+
+export function transformJsxToString(
+  code: string,
+  { debug, plugins }: Pick<OptionsResolved, 'debug' | 'plugins'>
+) {
+  const s = new MagicString(code)
+
+  const nodes = extractJsx(code, plugins)
+  for (const [node, expr] of nodes) {
+    let str: string
+    if (!debug) {
+      str = transformJsx(code, node)
+    } else {
+      try {
+        str = transformJsx(code, node)
+      } catch (err: any) {
+        str = `(() => { throw new Error(${escapeString(err.toString())}) })()`
+      }
+    }
+    s.overwrite(expr.start!, expr.end!, str)
+  }
+
+  return {
+    code: s.toString(),
+    get map() {
+      return s.generateMap()
+    },
   }
 }

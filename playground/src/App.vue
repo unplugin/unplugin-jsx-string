@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { convert as convertCode } from 'unplugin-jsx-string/cores'
+import { transformJsxToString } from 'unplugin-jsx-string/src/cores'
 
 const { copy } = useClipboard()
 
@@ -13,7 +13,7 @@ let result = $ref('')
 
 const convert = () => {
   try {
-    result = convertCode(code, {
+    result = transformJsxToString(code, {
       debug: true,
       plugins: ['jsx', 'typescript'],
     }).code
