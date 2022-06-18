@@ -29,7 +29,7 @@ export const escapeString = (str: string) => {
     wrap: true,
     es6: true,
   })
-  return text.replaceAll(RAW_RE, '${$1}')
+  return text.replace(RAW_RE, '${$1}')
 }
 export const isPrimitive = (val: unknown): val is Primitive => {
   if (typeof val === 'object') return val === null
