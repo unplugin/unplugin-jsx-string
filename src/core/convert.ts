@@ -40,6 +40,7 @@ import type {
   Node,
   ObjectExpression,
   TemplateLiteral,
+  UnaryExpression,
 } from '@babel/types'
 
 export type EvaluatedValue =
@@ -236,7 +237,8 @@ function transformJsx(code: string, node: JSX) {
         return resolveObjectExpression(node)
       case 'BinaryExpression':
         return resolveBinary(node)
-
+      case 'UnaryExpression':
+        return resolveUnaryExpression(node)
       default:
         return notSupported(node)
     }
@@ -308,6 +310,27 @@ function transformJsx(code: string, node: JSX) {
         return left in right
       case 'instanceof':
         return left instanceof right
+
+      default:
+        notSupported(node)
+    }
+  }
+
+  function resolveUnaryExpression(node: UnaryExpression) {
+    const value: any = resolveExpression(node.argument)
+    switch (node.operator) {
+      case '!':
+        return !value
+      case '+':
+        return +value
+      case '-':
+        return -value
+      case 'typeof':
+        return typeof value
+      case 'void':
+        return undefined
+      case '~':
+        return ~value
 
       default:
         notSupported(node)
