@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import Benchmark from 'benchmark'
-import { convert } from '../dist/cores.mjs'
+import { transformJsxToString } from '../dist/cores.mjs'
 
 const codes = [
   '<div>Hello World</div>',
@@ -11,7 +11,12 @@ const codes = [
 const suite = new Benchmark.Suite()
 
 for (const code of codes) {
-  suite.add(code, () => convert(`jsxToString(${code})`))
+  suite.add(code, () =>
+    transformJsxToString(`jsxToString(${code})`, {
+      debug: true,
+      plugins: ['jsx'],
+    })
+  )
 }
 
 suite
