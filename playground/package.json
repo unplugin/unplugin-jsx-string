@@ -11,8 +11,8 @@
     "vercel-build": "pnpm run -C .. build && pnpm build"
   },
   "dependencies": {
-    "@unocss/reset": "^0.38.2",
-    "@vueuse/core": "^8.6.0",
+    "@unocss/reset": "^0.39.3",
+    "@vueuse/core": "^8.7.4",
     "unplugin-jsx-string": "workspace:*",
     "vue": "^3.2.37"
   },
@@ -20,8 +20,8 @@
     "@iconify-json/carbon": "^1.1.5",
     "@vitejs/plugin-vue": "^3.0.0-alpha.1",
     "@vue/runtime-core": "^3.2.37",
-    "unocss": "^0.38.2",
-    "unplugin-auto-import": "^0.8.7",
+    "unocss": "^0.39.3",
+    "unplugin-auto-import": "^0.8.8",
     "unplugin-vue-components": "^0.19.6",
     "vite": "^3.0.0-alpha.10"
   }
