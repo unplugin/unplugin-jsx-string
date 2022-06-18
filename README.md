@@ -127,8 +127,8 @@ jsxToString(
 ## Benchmark
 
 ```
-<div>Hello World</div> x 73,893 ops/sec ±0.76% (91 runs sampled)
-<div><img src={'foo'} /><div></div></div> x 52,859 ops/sec ±0.77% (93 runs sampled)
+<div>Hello World</div> x 89,429 ops/sec ±0.88% (95 runs sampled)
+<div><img src={'foo'} /><div></div></div> x 62,522 ops/sec ±0.62% (93 runs sampled)
 ```
 
 <small>
