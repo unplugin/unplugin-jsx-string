@@ -98,7 +98,12 @@ export const convert = (
         )
       case 'JSXExpressionContainer': {
         const expr = resolveExpression(node.expression)
-        return typeof expr === 'object' ? JSON.stringify(expr) : String(expr)
+        if (expr instanceof RegExp) {
+          return expr.toString()
+        } else if (typeof expr === 'object') {
+          return JSON.stringify(expr)
+        }
+        return String(expr)
       }
       default:
         return notSupported(node)
@@ -226,7 +231,7 @@ export const convert = (
 
   function resolveExpression(
     node: Expression | JSXEmptyExpression | PrivateName | TSType
-  ): string | number | boolean | null {
+  ): string | number | boolean | bigint | RegExp | null {
     if (isLiteral(node)) {
       return resolveLiteral(node)
     } else if (isJSX(node)) {
@@ -247,22 +252,26 @@ export const convert = (
     }
   }
 
-  function resolveLiteral(node: Literal): string | number | boolean | null {
+  function resolveLiteral(
+    node: Literal
+  ): string | number | boolean | bigint | RegExp | null {
     switch (node.type) {
       case 'TemplateLiteral':
         return templateLiteralToString(node)
       case 'NullLiteral':
         return null
-
       case 'BigIntLiteral':
-      case 'DecimalLiteral':
+        return BigInt(node.value)
       case 'RegExpLiteral':
-        return node.extra!.raw as string
+        return new RegExp(node.pattern, node.flags)
 
       case 'BooleanLiteral':
       case 'NumericLiteral':
       case 'StringLiteral':
         return node.value
+
+      default:
+        return notSupported(node)
     }
   }
 

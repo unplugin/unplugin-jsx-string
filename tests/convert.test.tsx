@@ -148,22 +148,51 @@ describe('convert', () => {
     expect(jsxToString(<>{1 + 2 + true}</>)).toMatchInlineSnapshot('"4"')
   })
 
-  test('TemplateLiteral', () => {
-    expect(jsxToString(<>{`basic`}</>)).toMatchInlineSnapshot('"basic"')
-    expect(jsxToString(<>{`1${1}${2}b`}</>)).toMatchInlineSnapshot('"112b"')
-    expect(jsxToString(<>{`1${1 + 2 + 3}b`}</>)).toMatchInlineSnapshot('"16b"')
-    expect(
-      jsxToString(
-        // @ts-expect-error
-        <>{`a${true}${false}b${null}${true + 1 + 2 + false}${
-          // @ts-expect-error
-          null + 1
-        }${[]}${{}}`}</>
+  describe('Literal', () => {
+    test('TemplateLiteral', () => {
+      expect(jsxToString(<>{`basic`}</>)).toMatchInlineSnapshot('"basic"')
+      expect(jsxToString(<>{`1${1}${2}b`}</>)).toMatchInlineSnapshot('"112b"')
+      expect(jsxToString(<>{`1${1 + 2 + 3}b`}</>)).toMatchInlineSnapshot(
+        '"16b"'
       )
-    ).toBe(
-      // @ts-expect-error
-      `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}${[]}${{}}`
-    )
+      expect(
+        jsxToString(
+          // @ts-expect-error
+          <>{`a${true}${false}b${null}${true + 1 + 2 + false}${
+            // @ts-expect-error
+            null + 1
+          }${[]}${{}}`}</>
+        )
+      ).toBe(
+        // @ts-expect-error
+        `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}${[]}${{}}`
+      )
+    })
+
+    test('BigIntLiteral', () => {
+      expect(jsxToString(<>{1n}</>)).toMatchInlineSnapshot('"1"')
+      expect(
+        jsxToString(<>{100012301203123123123123n}</>)
+      ).toMatchInlineSnapshot('"100012301203123123123123"')
+    })
+
+    test('Primitive Literal', () => {
+      expect(jsxToString(<>{122}</>)).toMatchInlineSnapshot('"122"')
+      expect(jsxToString(<>{'false"'}</>)).toMatchInlineSnapshot('"false\\""')
+      expect(jsxToString(<>{false}</>)).toMatchInlineSnapshot('"false"')
+      expect(jsxToString(<>{null}</>)).toMatchInlineSnapshot('"null"')
+    })
+
+    test('Object/Array Literal', () => {
+      expect(jsxToString(<>{{}}</>)).toMatchInlineSnapshot('"{}"')
+      expect(jsxToString(<>{[{ foo: 'bar' }]}</>)).toMatchInlineSnapshot(
+        '"[{\\"foo\\":\\"bar\\"}]"'
+      )
+    })
+
+    test('RegExpLiteral', () => {
+      expect(jsxToString(<>{/a(.*)/g}</>)).toMatchInlineSnapshot('"/a(.*)/g"')
+    })
   })
 
   describe('error', () => {
