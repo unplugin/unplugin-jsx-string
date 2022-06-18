@@ -13,9 +13,9 @@ export const styleToString = (styles: Record<string, string>) =>
     .map(([key, value]) => `${kebabCase(key)}:${value}`)
     .join(';')
 
-export const normalizeObjectString = (text: string) => {
+export const parseObject = (text: string) => {
   try {
-    return JSON.stringify(JSON5.parse(text))
+    return JSON5.parse(text)
   } catch (err: any) {
     throw new SyntaxError(
       `Invalid attribute value: ${text}, error: ${err.message}`

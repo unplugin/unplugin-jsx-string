@@ -155,11 +155,14 @@ describe('convert', () => {
     expect(
       jsxToString(
         // @ts-expect-error
-        <>{`a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}`}</>
+        <>{`a${true}${false}b${null}${true + 1 + 2 + false}${
+          // @ts-expect-error
+          null + 1
+        }${[]}${{}}`}</>
       )
     ).toBe(
       // @ts-expect-error
-      `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}`
+      `a${true}${false}b${null}${true + 1 + 2 + false}${null + 1}${[]}${{}}`
     )
   })
 

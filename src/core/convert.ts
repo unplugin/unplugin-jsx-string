@@ -14,7 +14,7 @@ import {
   isStringLiteral,
 } from '@babel/types'
 import MagicString from 'magic-string'
-import { escapeString, normalizeObjectString, styleToString } from './utils'
+import { escapeString, parseObject, styleToString } from './utils'
 import type {
   Expression,
   JSX,
@@ -92,8 +92,10 @@ export const convert = (code: string, debug?: boolean) => {
             ?.map((comment) => `<!--${comment.value}-->`)
             .join('') ?? ''
         )
-      case 'JSXExpressionContainer':
-        return String(resolveExpression(node.expression))
+      case 'JSXExpressionContainer': {
+        const expr = resolveExpression(node.expression)
+        return typeof expr === 'object' ? JSON.stringify(expr) : String(expr)
+      }
       default:
         return notSupported(node)
     }
@@ -190,8 +192,10 @@ export const convert = (code: string, debug?: boolean) => {
   ): string | undefined | null {
     let value: string | undefined | null
 
+    // foo={true}
     if (isJSXExpressionContainer(node) && isBooleanLiteral(node.expression)) {
       value = node.expression.value ? undefined : null
+      // foo={() => {}}
     } else if (isJSXExpressionContainer(node) && isFunction(node.expression)) {
       value = getSource(node.expression.body)
     } else if (isJSX(node)) {
@@ -228,7 +232,7 @@ export const convert = (code: string, debug?: boolean) => {
     switch (node.type) {
       case 'ArrayExpression':
       case 'ObjectExpression':
-        return normalizeObjectString(getSource(node))
+        return parseObject(getSource(node))
 
       case 'BinaryExpression':
         // @ts-expect-error
