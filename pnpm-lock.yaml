@@ -20,7 +20,6 @@ importers:
       estree-walker: ^2.0.2
       fast-glob: ^3.2.11
       jsesc: ^3.0.2
-      json5: ^2.2.1
       magic-string: ^0.26.2
       prettier: ^2.6.2
       tsup: ^6.1.0
@@ -36,7 +35,6 @@ importers:
       entities: 4.3.0
       estree-walker: 2.0.2
       jsesc: 3.0.2
-      json5: 2.2.1
       magic-string: 0.26.2
       unplugin: 0.7.0_vite@2.9.12
     devDependencies:
@@ -2506,12 +2504,6 @@ packages:
     dependencies:
       minimist: 1.2.6
     dev: true
-
-  /json5/2.2.1:
-    resolution: {integrity: sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==}
-    engines: {node: '>=6'}
-    hasBin: true
-    dev: false
 
   /jsonc-eslint-parser/2.1.0:
     resolution: {integrity: sha512-qCRJWlbP2v6HbmKW7R3lFbeiVWHo+oMJ0j+MizwvauqnCV/EvtAeEeuCgoc/ErtsuoKgYB8U4Ih8AxJbXoE6/g==}

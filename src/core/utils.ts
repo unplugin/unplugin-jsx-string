@@ -1,5 +1,13 @@
-import JSON5 from 'json5'
 import jsesc from 'jsesc'
+
+export type Primitive =
+  | null
+  | undefined
+  | string
+  | number
+  | boolean
+  | symbol
+  | bigint
 
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 export function kebabCase(str: string) {
@@ -13,14 +21,13 @@ export const styleToString = (styles: Record<string, string>) =>
     .map(([key, value]) => `${kebabCase(key)}:${value}`)
     .join(';')
 
-export const parseObject = (text: string) => {
-  try {
-    return JSON5.parse(text)
-  } catch (err: any) {
-    throw new SyntaxError(
-      `Invalid attribute value: ${text}, error: ${err.message}`
-    )
-  }
+export const escapeString = (str: string) => `'${jsesc(str)}'`
+
+export const isPrimitive = (val: unknown): val is Primitive => {
+  if (typeof val === 'object') return val === null
+  return typeof val !== 'function'
 }
 
-export const escapeString = (str: string) => `'${jsesc(str)}'`
+export const isPlainObject = (obj: unknown): obj is Record<any, any> => {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}

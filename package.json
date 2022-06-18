@@ -69,6 +69,7 @@
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.json,.md",
     "lint:fix": "pnpm run lint -- --fix",
     "build": "tsup && tsx scripts/postbuild.mts",
+    "dev": "pnpm run -C playground dev",
     "test": "vitest",
     "release": "bumpp --commit --push --tag && pnpm publish",
     "benchmark": "node benchmark/index.mjs",
@@ -81,7 +82,6 @@
     "entities": "^4.3.0",
     "estree-walker": "^2.0.2",
     "jsesc": "^3.0.2",
-    "json5": "^2.2.1",
     "magic-string": "^0.26.2",
     "unplugin": "^0.7.0"
   },

@@ -20,6 +20,10 @@ describe('convert', () => {
       expect(jsxToString(<div className={`hello`} />)).toMatchInlineSnapshot(
         '"<div class=\\"hello\\"/>"'
       )
+      expect(
+        // @ts-expect-error
+        jsxToString(<div data-id={{ id: 1 + 2 + true }} />)
+      ).toMatchInlineSnapshot('"<div data-id=\\"{&quot;id&quot;:4}\\"/>"')
     })
 
     test('attribute name', () => {
@@ -36,6 +40,13 @@ describe('convert', () => {
         // @ts-expect-error
         jsxToString(<div className={['bar', 'foo']} />)
       ).toMatchInlineSnapshot('"<div class=\\"bar foo\\"/>"')
+
+      expect(
+        // @ts-expect-error
+        jsxToString(<div className={['bar', { foo: true }]} />)
+      ).toMatchInlineSnapshot(
+        '"<div class=\\"[&quot;bar&quot;,{&quot;foo&quot;:true}]\\"/>"'
+      )
     })
 
     test('style', () => {
@@ -232,7 +243,7 @@ describe('convert', () => {
         // @ts-expect-error
         jsxToString(<div className={[s, 'class']} />)
       ).toThrowErrorMatchingInlineSnapshot(
-        "\"SyntaxError: Invalid attribute value: [s, 'class'], error: JSON5: invalid character 's' at 1:2\""
+        '"Error: not supported Identifier: s"'
       )
     })
   })

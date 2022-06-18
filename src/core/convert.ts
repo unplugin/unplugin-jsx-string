@@ -2,7 +2,6 @@ import { parse } from '@babel/parser'
 import { walk } from 'estree-walker'
 import { encode } from 'entities'
 import {
-  isArrayExpression,
   isBooleanLiteral,
   isCallExpression,
   isFunction,
@@ -10,18 +9,23 @@ import {
   isJSX,
   isJSXExpressionContainer,
   isLiteral,
-  isObjectExpression,
   isStringLiteral,
 } from '@babel/types'
 import MagicString from 'magic-string'
-import { escapeString, parseObject, styleToString } from './utils'
+import {
+  escapeString,
+  isPlainObject,
+  isPrimitive,
+  styleToString,
+} from './utils'
+import type { Primitive } from './utils'
 import type { OptionsResolved } from './options'
 import type {
+  ArrayExpression,
   Expression,
   JSX,
   JSXAttribute,
   JSXElement,
-  JSXEmptyExpression,
   JSXExpressionContainer,
   JSXFragment,
   JSXIdentifier,
@@ -32,10 +36,15 @@ import type {
   JSXText,
   Literal,
   Node,
-  PrivateName,
-  TSType,
+  ObjectExpression,
   TemplateLiteral,
 } from '@babel/types'
+
+type ResolvedValue =
+  | Exclude<Primitive, symbol>
+  | RegExp
+  | Record<any, any>
+  | any[]
 
 export const convert = (
   code: string,
@@ -83,6 +92,19 @@ export const convert = (
   }
 
   function jsxToString(node: JSX): string {
+    return expressionToString(resolveJsx(node))
+  }
+
+  function expressionToString(expr: ResolvedValue) {
+    if (expr instanceof RegExp) {
+      return expr.toString()
+    } else if (typeof expr === 'object') {
+      return JSON.stringify(expr)
+    }
+    return String(expr)
+  }
+
+  function resolveJsx(node: JSX): ResolvedValue {
     switch (node.type) {
       case 'JSXElement':
         return jsxElementToString(node)
@@ -97,13 +119,7 @@ export const convert = (
             .join('') ?? ''
         )
       case 'JSXExpressionContainer': {
-        const expr = resolveExpression(node.expression)
-        if (expr instanceof RegExp) {
-          return expr.toString()
-        } else if (typeof expr === 'object') {
-          return JSON.stringify(expr)
-        }
-        return String(expr)
+        return resolveExpression(node.expression)
       }
       default:
         return notSupported(node)
@@ -199,7 +215,9 @@ export const convert = (
     node: NonNullable<JSXAttribute['value']>,
     key: string
   ): string | undefined | null {
-    let value: string | undefined | null
+    // undefined for omiting attribute value
+    // null for ignoring whole attribute
+    let value: ResolvedValue | undefined | null
 
     // foo={true}
     if (isJSXExpressionContainer(node) && isBooleanLiteral(node.expression)) {
@@ -208,30 +226,25 @@ export const convert = (
     } else if (isJSXExpressionContainer(node) && isFunction(node.expression)) {
       value = getSource(node.expression.body)
     } else if (isJSX(node)) {
-      value = jsxToString(node)
+      value = resolveJsx(node)
 
-      if (
-        isJSXExpressionContainer(node) &&
-        (isObjectExpression(node.expression) ||
-          isArrayExpression(node.expression))
-      ) {
-        if (key === 'style') {
-          value = styleToString(JSON.parse(value))
-        } else if (key === 'class') {
-          const classes = JSON.parse(value)
-          if (Array.isArray(classes)) value = classes.join(' ')
-        }
-      }
+      if (key === 'style' && isPlainObject(value)) {
+        value = styleToString(value as Record<any, any>)
+      } else if (
+        key === 'class' &&
+        Array.isArray(value) &&
+        value.every((e) => isPrimitive(e))
+      )
+        value = value.join(' ')
     } else if (isStringLiteral(node)) {
       value = node.value
     }
 
-    return value
+    if (value === undefined || value === null) return value
+    return expressionToString(value)
   }
 
-  function resolveExpression(
-    node: Expression | JSXEmptyExpression | PrivateName | TSType
-  ): string | number | boolean | bigint | RegExp | null {
+  function resolveExpression(node: Node): ResolvedValue {
     if (isLiteral(node)) {
       return resolveLiteral(node)
     } else if (isJSX(node)) {
@@ -240,9 +253,9 @@ export const convert = (
 
     switch (node.type) {
       case 'ArrayExpression':
+        return resolveArray(node)
       case 'ObjectExpression':
-        return parseObject(getSource(node))
-
+        return resolveObject(node)
       case 'BinaryExpression':
         // @ts-expect-error
         return resolveExpression(node.left) + resolveExpression(node.right)
@@ -252,9 +265,7 @@ export const convert = (
     }
   }
 
-  function resolveLiteral(
-    node: Literal
-  ): string | number | boolean | bigint | RegExp | null {
+  function resolveLiteral(node: Literal): ResolvedValue {
     switch (node.type) {
       case 'TemplateLiteral':
         return templateLiteralToString(node)
@@ -273,6 +284,32 @@ export const convert = (
       default:
         return notSupported(node)
     }
+  }
+
+  function resolveArray(node: ArrayExpression) {
+    const items: any[] = []
+    for (const [i, element] of node.elements.entries()) {
+      if (element) items[i] = resolveExpression(element)
+    }
+    return items
+  }
+
+  function resolveObject(node: ObjectExpression) {
+    const obj: Record<any, any> = {}
+    for (const prop of node.properties) {
+      if (prop.type !== 'ObjectProperty') return notSupported(prop)
+
+      let key: any
+      if (isIdentifier(prop.key) && !prop.computed) {
+        key = prop.key.name
+      } else {
+        key = resolveExpression(prop.key)
+      }
+
+      obj[key] = resolveExpression(prop.value)
+    }
+
+    return obj
   }
 
   function templateLiteralToString(node: TemplateLiteral) {
