@@ -15,6 +15,7 @@ import {
 } from '@babel/types'
 import MagicString from 'magic-string'
 import { escapeString, parseObject, styleToString } from './utils'
+import type { OptionsResolved } from './options'
 import type {
   Expression,
   JSX,
@@ -36,10 +37,10 @@ import type {
   TemplateLiteral,
 } from '@babel/types'
 
-export const convert = (code: string, debug?: boolean) => {
+export const convert = (code: string, { debug, plugins }: OptionsResolved) => {
   const ast = parse(code, {
     sourceType: 'module',
-    plugins: ['typescript', 'jsx'],
+    plugins,
   })
 
   const nodes: [JSX, Expression][] = []

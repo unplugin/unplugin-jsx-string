@@ -1,26 +1,11 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { convert } from './core/convert'
-import type { FilterPattern } from '@rollup/pluginutils'
+import { resolveOption } from './core/options'
+import type { Options } from './core/options'
 
 declare global {
   const jsxToString: (element: JSX.Element) => string
-}
-
-export interface Options {
-  include?: FilterPattern
-  exclude?: FilterPattern | undefined
-  debug?: boolean
-}
-
-export type OptionsResolved = Required<Options>
-
-function resolveOption(options: Options): OptionsResolved {
-  return {
-    include: options.include || [/\.[jt]sx$/],
-    exclude: options.exclude || undefined,
-    debug: options.debug ?? false,
-  }
 }
 
 export default createUnplugin<Options>((options = {}) => {
@@ -38,7 +23,7 @@ export default createUnplugin<Options>((options = {}) => {
 
     transform(code) {
       try {
-        return convert(code, opt.debug)
+        return convert(code, opt)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }
