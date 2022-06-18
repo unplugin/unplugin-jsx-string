@@ -21,8 +21,16 @@ export const styleToString = (styles: Record<string, string>) =>
     .map(([key, value]) => `${kebabCase(key)}:${value}`)
     .join(';')
 
-export const escapeString = (str: string) => `'${jsesc(str)}'`
+const RAW_RE = /__RAW_(.*?)_RAW/g
 
+export const escapeString = (str: string) => {
+  const text = jsesc(str, {
+    quotes: 'backtick',
+    wrap: true,
+    es6: true,
+  })
+  return text.replaceAll(RAW_RE, '${$1}')
+}
 export const isPrimitive = (val: unknown): val is Primitive => {
   if (typeof val === 'object') return val === null
   return typeof val !== 'function'

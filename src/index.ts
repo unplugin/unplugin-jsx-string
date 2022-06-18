@@ -6,6 +6,7 @@ import type { Options } from './core/options'
 
 declare global {
   const jsxToString: (element: JSX.Element) => string
+  const jsxRaw: (variable: any) => any
 }
 
 export default createUnplugin<Options>((options = {}) => {

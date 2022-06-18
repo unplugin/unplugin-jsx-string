@@ -257,4 +257,12 @@ describe('convert', () => {
       )
     ).toMatchInlineSnapshot('"<div>`///\\\\\\\\\\\\\\\\`$233$foo</div>"')
   })
+
+  test('reference variable', () => {
+    let i = 0
+    expect(
+      jsxToString(<div className={jsxRaw(i++)}>Hello</div>)
+    ).toMatchInlineSnapshot('"<div class=\\"0\\">Hello</div>"')
+    expect(jsxToString(<>{jsxRaw(i++)}</>)).toMatchInlineSnapshot('"1"')
+  })
 })

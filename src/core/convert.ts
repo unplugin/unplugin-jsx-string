@@ -24,6 +24,7 @@ import type { OptionsResolved } from './options'
 import type {
   ArrayExpression,
   Binary,
+  CallExpression,
   Expression,
   JSX,
   JSXAttribute,
@@ -251,9 +252,19 @@ function transformJsx(code: string, node: JSX) {
       }
       case 'TSNonNullExpression':
         return resolveExpression(node.expression)
+      case 'CallExpression':
+        return resolveCallExpression(node)
       default:
         return notSupported(node)
     }
+  }
+
+  function resolveCallExpression(node: CallExpression) {
+    if (node.callee.type === 'Identifier' && node.callee.name === 'jsxRaw') {
+      return `__RAW_${getSource(node.arguments[0])}_RAW`
+    }
+
+    return notSupported(node)
   }
 
   function resolveBinary(node: Binary) {
