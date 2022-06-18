@@ -32,6 +32,7 @@ import type {
   Literal,
   Node,
   PrivateName,
+  TSType,
   TemplateLiteral,
 } from '@babel/types'
 
@@ -92,7 +93,7 @@ export const convert = (code: string, debug?: boolean) => {
             .join('') ?? ''
         )
       case 'JSXExpressionContainer':
-        return expressionToString(node.expression)
+        return String(resolveExpression(node.expression))
       default:
         return notSupported(node)
     }
@@ -215,11 +216,11 @@ export const convert = (code: string, debug?: boolean) => {
     return value
   }
 
-  function expressionToString(
-    node: Expression | JSXEmptyExpression | PrivateName
-  ): string {
+  function resolveExpression(
+    node: Expression | JSXEmptyExpression | PrivateName | TSType
+  ): string | number | boolean {
     if (isLiteral(node)) {
-      return literalToString(node)
+      return resolveLiteral(node)
     } else if (isJSX(node)) {
       return jsxToString(node)
     }
@@ -230,27 +231,42 @@ export const convert = (code: string, debug?: boolean) => {
         return normalizeObjectString(getSource(node))
 
       case 'BinaryExpression':
-        return expressionToString(node.left) + expressionToString(node.right)
+        // @ts-expect-error
+        return resolveExpression(node.left) + resolveExpression(node.right)
 
       default:
         return notSupported(node)
     }
   }
 
-  function literalToString(node: Literal) {
+  function resolveLiteral(node: Literal): string | number | boolean {
     switch (node.type) {
       case 'TemplateLiteral':
         return templateLiteralToString(node)
       case 'NullLiteral':
         return ''
-      default:
-        return String(node.extra?.rawValue ?? node.extra?.raw ?? '')
+
+      case 'BigIntLiteral':
+      case 'DecimalLiteral':
+      case 'RegExpLiteral':
+        return node.extra!.raw as string
+
+      case 'BooleanLiteral':
+      case 'NumericLiteral':
+      case 'StringLiteral':
+        return node.value
     }
   }
 
   function templateLiteralToString(node: TemplateLiteral) {
-    if (node.expressions.length > 0) notSupported(node)
-    return node.quasis.map((quasi) => quasi.value.cooked).join('')
+    return node.quasis.reduce((prev, curr, idx) => {
+      if (node.expressions[idx]) {
+        return (
+          prev + curr.value.cooked + resolveExpression(node.expressions[idx])
+        )
+      }
+      return prev + curr.value.cooked
+    }, '')
   }
 
   function getSource(node: Node) {

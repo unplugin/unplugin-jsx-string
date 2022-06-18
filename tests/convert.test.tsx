@@ -142,7 +142,18 @@ describe('convert', () => {
     expect(jsxToString(<>{`a` + 1 + 'b'}</>)).toMatchInlineSnapshot('"a1b"')
     // eslint-disable-next-line prefer-template
     expect(jsxToString(<>{`a` + true + false + 'b'}</>)).toMatchInlineSnapshot(
-      '"ab"'
+      '"atruefalseb"'
+    )
+    // @ts-expect-error
+    expect(jsxToString(<>{1 + 2 + true}</>)).toMatchInlineSnapshot('"4"')
+  })
+
+  test('TemplateLiteral', () => {
+    expect(jsxToString(<>{`basic`}</>)).toMatchInlineSnapshot('"basic"')
+    expect(jsxToString(<>{`1${1}${2}b`}</>)).toMatchInlineSnapshot('"112b"')
+    expect(jsxToString(<>{`1${1 + 2 + 3}b`}</>)).toMatchInlineSnapshot('"16b"')
+    expect(jsxToString(<>{`a${true}${false}b`}</>)).toMatchInlineSnapshot(
+      '"atruefalseb"'
     )
   })
 
@@ -157,7 +168,7 @@ describe('convert', () => {
       expect(() =>
         jsxToString(<div id={`a${s}`} />)
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported TemplateLiteral: `a${s}`"'
+        '"Error: not supported Identifier: s"'
       )
       expect(() =>
         jsxToString(<div>{...[]}</div>)
