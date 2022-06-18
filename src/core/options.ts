@@ -7,7 +7,9 @@ export interface Options {
   debug?: boolean
   /**
    * Plugins for `@babel/parser`
-   * @default `['typescript', 'jsx']`
+   *
+   * If filename ends with `.tsx`, `typescript` will be automatically added to the default value.
+   * @default `['jsx']` or `['jsx', 'typescript']`.
    */
   plugins?: ParserPlugin[]
 }
@@ -19,6 +21,6 @@ export function resolveOption(options: Options): OptionsResolved {
     include: options.include || [/\.[jt]sx$/],
     exclude: options.exclude || undefined,
     debug: options.debug ?? false,
-    plugins: ['typescript', 'jsx'],
+    plugins: ['jsx'],
   }
 }

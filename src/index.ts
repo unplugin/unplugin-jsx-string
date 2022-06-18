@@ -22,9 +22,12 @@ export default createUnplugin<Options>((options = {}) => {
       return filter(id)
     },
 
-    transform(code) {
+    transform(code, id) {
       try {
-        return transformJsxToString(code, opt)
+        return transformJsxToString(code, {
+          ...opt,
+          id,
+        })
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

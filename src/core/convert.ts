@@ -430,11 +430,17 @@ function transformJsx(code: string, node: JSX) {
 
 export function transformJsxToString(
   code: string,
-  { debug, plugins }: Pick<OptionsResolved, 'debug' | 'plugins'>
+  {
+    debug,
+    plugins,
+    id = '',
+  }: Pick<OptionsResolved, 'debug' | 'plugins'> & { id?: string }
 ) {
   const s = new MagicString(code)
 
+  if (id.endsWith('.tsx')) plugins.push('typescript')
   const nodes = extractJsx(code, plugins)
+
   for (const [node, expr] of nodes) {
     let str: string
     if (!debug) {
