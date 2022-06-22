@@ -224,7 +224,7 @@ function transformJsx(code: string, node: JSX) {
     }
   }
 
-  function resolveExpression(node: Node): EvaluatedValue {
+  function resolveExpression(node: Node, parent?: Node): EvaluatedValue {
     if (isLiteral(node)) {
       return resolveLiteral(node)
     } else if (isJSX(node)) {
@@ -242,26 +242,30 @@ function transformJsx(code: string, node: JSX) {
       case 'UnaryExpression':
         return resolveUnaryExpression(node)
       case 'ConditionalExpression':
-        return resolveExpression(node.test)
-          ? resolveExpression(node.consequent)
-          : resolveExpression(node.alternate)
+        return resolveExpression(node.test, node)
+          ? resolveExpression(node.consequent, node)
+          : resolveExpression(node.alternate, node)
       case 'SequenceExpression': {
         const expressions = node.expressions.map((expr) =>
-          resolveExpression(expr)
+          resolveExpression(expr, node)
         )
         return expressions.slice(-1)[0]
       }
       case 'TSNonNullExpression':
-        return resolveExpression(node.expression)
+        return resolveExpression(node.expression, node)
       case 'CallExpression':
-        return resolveCallExpression(node)
+        return resolveCallExpression(node, !parent)
       default:
         return notSupported(node)
     }
   }
 
-  function resolveCallExpression(node: CallExpression) {
-    if (node.callee.type === 'Identifier' && node.callee.name === 'jsxRaw') {
+  function resolveCallExpression(node: CallExpression, isTopLevel: boolean) {
+    if (
+      isTopLevel &&
+      node.callee.type === 'Identifier' &&
+      node.callee.name === 'jsxRaw'
+    ) {
       return `__RAW_${getSource(node.arguments[0])}_RAW`
     }
 
@@ -269,8 +273,8 @@ function transformJsx(code: string, node: JSX) {
   }
 
   function resolveBinary(node: Binary) {
-    const left: any = resolveExpression(node.left)
-    const right: any = resolveExpression(node.right)
+    const left: any = resolveExpression(node.left, node)
+    const right: any = resolveExpression(node.right, node)
     switch (node.operator) {
       case '+':
         return left + right
@@ -341,7 +345,7 @@ function transformJsx(code: string, node: JSX) {
   }
 
   function resolveUnaryExpression(node: UnaryExpression) {
-    const value: any = resolveExpression(node.argument)
+    const value: any = resolveExpression(node.argument, node)
     switch (node.operator) {
       case '!':
         return !value
@@ -385,7 +389,7 @@ function transformJsx(code: string, node: JSX) {
   function resolveArrayExpression(node: ArrayExpression) {
     const items: any[] = []
     for (const [i, element] of node.elements.entries()) {
-      if (element) items[i] = resolveExpression(element)
+      if (element) items[i] = resolveExpression(element, node)
     }
     return items
   }
@@ -399,10 +403,10 @@ function transformJsx(code: string, node: JSX) {
       if (isIdentifier(prop.key) && !prop.computed) {
         key = prop.key.name
       } else {
-        key = resolveExpression(prop.key)
+        key = resolveExpression(prop.key, prop)
       }
 
-      obj[key] = resolveExpression(prop.value)
+      obj[key] = resolveExpression(prop.value, prop)
     }
 
     return obj
@@ -412,7 +416,9 @@ function transformJsx(code: string, node: JSX) {
     return node.quasis.reduce((prev, curr, idx) => {
       if (node.expressions[idx]) {
         return (
-          prev + curr.value.cooked + resolveExpression(node.expressions[idx])
+          prev +
+          curr.value.cooked +
+          resolveExpression(node.expressions[idx], node)
         )
       }
       return prev + curr.value.cooked

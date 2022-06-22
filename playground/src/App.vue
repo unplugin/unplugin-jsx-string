@@ -5,8 +5,9 @@ const { copy } = useClipboard()
 
 const code = $ref(
   `
+console.log(jsxToString(<div>Hello World: { true ? 1 + 2 + 3 : 'never!' }</div>))
 const t = Date.now()
-console.log(jsxToString(<div>Now: { true ? jsxRaw(Math.trunc(t / 1000)) : 'never!'}</div>))
+console.log(jsxToString(<div>Now: { jsxRaw(Math.trunc(t / 1000)) }</div>))
 console.log(jsxToString(<div className={[
   \`Hello\` + 'World' + true,
   'foo',
