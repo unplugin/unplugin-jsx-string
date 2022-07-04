@@ -19,6 +19,8 @@ defineEmits<{
     bg="transparent"
     border="~ rounded gray-200 dark:gray-700"
     outline="none active:none"
-    @input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"
+    @input="
+      $emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)
+    "
   />
 </template>
