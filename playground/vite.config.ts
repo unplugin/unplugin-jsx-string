@@ -8,6 +8,9 @@ import Unocss from 'unocss/vite'
 const resolve = (...paths: string[]) => path.resolve(__dirname, 'src', ...paths)
 
 export default defineConfig({
+  define: {
+    'process.env.BABEL_TYPES_8_BREAKING': 'false',
+  },
   plugins: [
     Vue({
       reactivityTransform: true,
@@ -24,11 +27,4 @@ export default defineConfig({
     }),
     Unocss(),
   ],
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        'process.env.BABEL_TYPES_8_BREAKING': 'false',
-      },
-    },
-  },
 })
