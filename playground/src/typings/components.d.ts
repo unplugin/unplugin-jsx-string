@@ -11,5 +11,4 @@ declare module '@vue/runtime-core' {
     AppHeader: typeof import('./../components/app-header.vue')['default']
     CodeInput: typeof import('./../components/code-input.vue')['default']
   }
-
 }
