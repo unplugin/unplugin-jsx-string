@@ -72,7 +72,7 @@
     "build": "tsup && tsx scripts/postbuild.mts",
     "dev": "pnpm run -C playground dev",
     "test": "vitest",
-    "release": "bumpp --commit --push --tag && pnpm publish",
+    "release": "bumpp && pnpm publish",
     "benchmark": "node benchmark/index.mjs",
     "prepublishOnly": "pnpm run build"
   },
