@@ -295,8 +295,10 @@ function transformJsx(code: string, node: JSX) {
 
       // Comparison operators
       case '==':
+        // eslint-disable-next-line eqeqeq
         return left == right
       case '!=':
+        // eslint-disable-next-line eqeqeq
         return left != right
       case '===':
         return left === right
