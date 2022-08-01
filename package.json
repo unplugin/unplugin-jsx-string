@@ -1,7 +1,7 @@
 {
   "name": "unplugin-jsx-string",
   "version": "0.5.5",
-  "packageManager": "pnpm@7.6.0",
+  "packageManager": "pnpm@7.8.0",
   "description": "Converts JSX to HTML strings at compile time.",
   "keywords": [
     "unplugin",
@@ -84,25 +84,25 @@
     "estree-walker": "^3.0.1",
     "jsesc": "^3.0.2",
     "magic-string": "^0.26.2",
-    "unplugin": "^0.7.2"
+    "unplugin": "^0.8.0"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^2.3.3",
+    "@sxzz/eslint-config": "^2.3.5",
     "@types/benchmark": "^2.1.1",
     "@types/jsesc": "^3.0.1",
     "@types/node": "*",
     "@types/react": "^18.0.15",
     "benchmark": "^2.1.4",
     "bumpp": "^8.2.1",
-    "eslint": "^8.20.0",
-    "eslint-define-config": "^1.5.1",
+    "eslint": "^8.21.0",
+    "eslint-define-config": "^1.6.0",
     "fast-glob": "^3.2.11",
     "prettier": "^2.7.1",
-    "tsup": "^6.1.3",
+    "tsup": "^6.2.1",
     "tsx": "^3.8.0",
     "typescript": "^4.7.4",
-    "vite": "^3.0.3",
-    "vitest": "^0.19.0"
+    "vite": "^3.0.4",
+    "vitest": "^0.20.2"
   },
   "engines": {
     "node": ">=14.19.0"
