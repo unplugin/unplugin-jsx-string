@@ -251,7 +251,11 @@ function transformJsx(code: string, node: JSX) {
         )
         return expressions.slice(-1)[0]
       }
-      case 'TSNonNullExpression':
+      case 'ParenthesizedExpression': // (1)
+      case 'TSNonNullExpression': // 1!
+      case 'TSAsExpression': // 1 as number
+      case 'TSTypeAssertion': // (<number>2)
+      case 'TSInstantiationExpression': // '1'<string>
         return resolveExpression(node.expression, node)
       case 'CallExpression':
         return resolveCallExpression(node, !parent)
