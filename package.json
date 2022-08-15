@@ -84,25 +84,25 @@
     "estree-walker": "^3.0.1",
     "jsesc": "^3.0.2",
     "magic-string": "^0.26.2",
-    "unplugin": "^0.9.0"
+    "unplugin": "^0.9.2"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^2.3.5",
+    "@sxzz/eslint-config": "^2.4.0",
     "@types/benchmark": "^2.1.1",
     "@types/jsesc": "^3.0.1",
     "@types/node": "*",
-    "@types/react": "^18.0.16",
+    "@types/react": "^18.0.17",
     "benchmark": "^2.1.4",
     "bumpp": "^8.2.1",
-    "eslint": "^8.21.0",
+    "eslint": "^8.22.0",
     "eslint-define-config": "^1.6.0",
     "fast-glob": "^3.2.11",
     "prettier": "^2.7.1",
-    "tsup": "^6.2.1",
-    "tsx": "^3.8.1",
+    "tsup": "^6.2.2",
+    "tsx": "^3.8.2",
     "typescript": "^4.7.4",
-    "vite": "^3.0.4",
-    "vitest": "^0.21.0"
+    "vite": "^3.0.7",
+    "vitest": "^0.21.1"
   },
   "engines": {
     "node": ">=14.19.0"
