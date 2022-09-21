@@ -14,7 +14,7 @@ defineEmits<{
     p-2
     w-full
     max-w="800px"
-    rows="8"
+    rows="15"
     font="mono"
     bg="transparent"
     border="~ rounded gray-200 dark:gray-700"
