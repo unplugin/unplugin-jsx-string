@@ -56,7 +56,7 @@ function extractJsx(code: string, plugins: ParserPlugin[]) {
     plugins,
   })
   const nodes: [JSX, Expression][] = []
-  walk(ast.program, {
+  ;(walk as any)(ast.program, {
     enter(node: Node) {
       let arg: Node
       if (
