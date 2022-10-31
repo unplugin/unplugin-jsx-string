@@ -1,7 +1,7 @@
 {
   "name": "unplugin-jsx-string",
   "version": "0.5.5",
-  "packageManager": "pnpm@7.14.0",
+  "packageManager": "pnpm@7.14.1",
   "description": "Converts JSX to HTML strings at compile time.",
   "keywords": [
     "unplugin",
@@ -77,31 +77,31 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@babel/parser": "^7.19.6",
-    "@babel/types": "^7.19.4",
+    "@babel/parser": "^7.20.0",
+    "@babel/types": "^7.20.0",
     "@rollup/pluginutils": "^5.0.2",
     "entities": "^4.4.0",
     "estree-walker": "^3.0.1",
     "jsesc": "^3.0.2",
     "magic-string": "^0.26.7",
-    "unplugin": "^0.10.1"
+    "unplugin": "^0.10.2"
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^2.4.4",
     "@types/benchmark": "^2.1.2",
     "@types/jsesc": "^3.0.1",
     "@types/node": "*",
-    "@types/react": "^18.0.22",
+    "@types/react": "^18.0.24",
     "benchmark": "^2.1.4",
     "bumpp": "^8.2.1",
     "eslint": "^8.26.0",
-    "eslint-define-config": "^1.8.0",
+    "eslint-define-config": "^1.11.0",
     "fast-glob": "^3.2.12",
     "prettier": "^2.7.1",
     "tsup": "^6.3.0",
     "tsx": "^3.11.0",
     "typescript": "^4.8.4",
-    "vite": "^3.1.8",
+    "vite": "^3.2.1",
     "vitest": "^0.24.3"
   },
   "engines": {
