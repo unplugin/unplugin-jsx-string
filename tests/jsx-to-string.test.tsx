@@ -254,12 +254,6 @@ describe('jsxToString', () => {
   })
 
   describe('throw error', () => {
-    test('without function', () => {
-      expect(() => <div />).toThrowError()
-      // @ts-expect-error
-      expect(() => jsx(<div />)).toThrowError()
-    })
-
     test('unsupported', () => {
       let n = 1
       const s = 'str'
