@@ -1,7 +1,7 @@
 {
   "name": "unplugin-jsx-string-playground",
   "version": "0.0.0",
-  "packageManager": "pnpm@7.25.0",
+  "packageManager": "pnpm@7.25.1",
   "license": "MIT",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "@unocss/reset": "^0.48.4",
-    "@vueuse/core": "^9.10.0",
+    "@vueuse/core": "^9.11.1",
     "unplugin-jsx-string": "workspace:*",
     "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.13",
+    "@iconify-json/carbon": "^1.1.14",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/runtime-core": "^3.2.45",
     "unocss": "^0.48.4",
