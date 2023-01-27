@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { transformJsxToString } from 'unplugin-jsx-string/src/cores'
+import { transformJsxToString } from 'unplugin-jsx-string/api'
 
 const { copy } = useClipboard()
 
