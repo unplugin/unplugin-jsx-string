@@ -470,7 +470,7 @@ export function transformJsxToString(
   return {
     code: s.toString(),
     get map() {
-      return s.generateMap()
+      return s.generateMap() as any
     },
   }
 }
