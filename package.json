@@ -91,7 +91,7 @@
     "@types/node": "^18.14.2",
     "@types/react": "^18.0.28",
     "benchmark": "^2.1.4",
-    "bumpp": "^8.2.1",
+    "bumpp": "^9.0.0",
     "eslint": "^8.35.0",
     "eslint-define-config": "^1.15.0",
     "fast-glob": "^3.2.12",
