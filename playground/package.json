@@ -1,7 +1,7 @@
 {
   "name": "unplugin-jsx-string-playground",
   "version": "0.0.0",
-  "packageManager": "pnpm@7.28.0",
+  "packageManager": "pnpm@7.29.3",
   "license": "MIT",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
@@ -11,7 +11,7 @@
     "vercel-build": "pnpm run -C .. build && pnpm build"
   },
   "dependencies": {
-    "@unocss/reset": "^0.50.3",
+    "@unocss/reset": "^0.50.4",
     "@vueuse/core": "^9.13.0",
     "unplugin-jsx-string": "workspace:*",
     "vue": "^3.2.47"
@@ -20,9 +20,9 @@
     "@iconify-json/carbon": "^1.1.16",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/runtime-core": "^3.2.47",
-    "unocss": "^0.50.3",
-    "unplugin-auto-import": "^0.15.0",
-    "unplugin-vue-components": "^0.24.0",
+    "unocss": "^0.50.4",
+    "unplugin-auto-import": "^0.15.1",
+    "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.4",
     "vue-tsc": "^1.2.0"
   }
