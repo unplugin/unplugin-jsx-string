@@ -11,19 +11,19 @@
     "vercel-build": "pnpm run -C .. build && pnpm build"
   },
   "dependencies": {
-    "@unocss/reset": "^0.51.13",
+    "@unocss/reset": "^0.52.0",
     "@vueuse/core": "^10.1.2",
     "unplugin-jsx-string": "workspace:*",
-    "vue": "^3.3.2"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.16",
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/runtime-core": "^3.3.2",
-    "unocss": "^0.51.13",
-    "unplugin-auto-import": "^0.15.3",
+    "@vue/runtime-core": "^3.3.4",
+    "unocss": "^0.52.0",
+    "unplugin-auto-import": "^0.16.1",
     "unplugin-vue-components": "^0.24.1",
-    "vite": "^4.3.5",
+    "vite": "^4.3.8",
     "vue-tsc": "^1.6.5"
   }
 }
