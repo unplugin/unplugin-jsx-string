@@ -1,7 +1,28 @@
-import { parse } from '@babel/parser'
+import { type ParserPlugin, parse } from '@babel/parser'
 import { walk } from 'estree-walker'
 import { encode } from 'entities'
+import MagicString from 'magic-string'
 import {
+  type ArrayExpression,
+  type Binary,
+  type CallExpression,
+  type Expression,
+  type JSX,
+  type JSXAttribute,
+  type JSXElement,
+  type JSXExpressionContainer,
+  type JSXFragment,
+  type JSXIdentifier,
+  type JSXMemberExpression,
+  type JSXNamespacedName,
+  type JSXOpeningElement,
+  type JSXSpreadChild,
+  type JSXText,
+  type Literal,
+  type Node,
+  type ObjectExpression,
+  type TemplateLiteral,
+  type UnaryExpression,
   isBooleanLiteral,
   isCallExpression,
   isFunction,
@@ -11,38 +32,14 @@ import {
   isLiteral,
   isStringLiteral,
 } from '@babel/types'
-import MagicString from 'magic-string'
 import {
+  type Primitive,
   escapeString,
   isPlainObject,
   isPrimitive,
   styleToString,
 } from './utils'
-import type { ParserPlugin } from '@babel/parser'
-import type { Primitive } from './utils'
-import type { OptionsResolved } from './options'
-import type {
-  ArrayExpression,
-  Binary,
-  CallExpression,
-  Expression,
-  JSX,
-  JSXAttribute,
-  JSXElement,
-  JSXExpressionContainer,
-  JSXFragment,
-  JSXIdentifier,
-  JSXMemberExpression,
-  JSXNamespacedName,
-  JSXOpeningElement,
-  JSXSpreadChild,
-  JSXText,
-  Literal,
-  Node,
-  ObjectExpression,
-  TemplateLiteral,
-  UnaryExpression,
-} from '@babel/types'
+import { type OptionsResolved } from './options'
 
 export type EvaluatedValue =
   | Exclude<Primitive, symbol>
@@ -249,7 +246,7 @@ function transformJsx(code: string, node: JSX) {
         const expressions = node.expressions.map((expr) =>
           resolveExpression(expr, node)
         )
-        return expressions.slice(-1)[0]
+        return expressions.at(-1)
       }
       case 'ParenthesizedExpression': // (1)
       case 'TSNonNullExpression': // 1!

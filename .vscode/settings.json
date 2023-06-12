@@ -1,4 +1,8 @@
 {
   "editor.formatOnSave": true,
-  "unocss.root": "./playground"
+  "unocss.root": "./playground",
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.options": {
+    "overrideConfigFile": "./eslint.config.mjs"
+  }
 }

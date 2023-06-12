@@ -65,7 +65,7 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.json,.md",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.mjs --cache .",
     "lint:fix": "pnpm run lint -- --fix",
     "build": "tsup && tsx scripts/postbuild.mts",
     "dev": "pnpm run -C playground dev",

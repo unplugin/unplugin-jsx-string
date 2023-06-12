@@ -11,7 +11,7 @@ export type Primitive =
 
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 export function kebabCase(str: string) {
-  return str.replace(KEBAB_REGEX, (match) => {
+  return str.replaceAll(KEBAB_REGEX, (match) => {
     return `-${match.toLowerCase()}`
   })
 }
@@ -29,7 +29,7 @@ export const escapeString = (str: string) => {
     wrap: true,
     es6: true,
   })
-  return text.replace(RAW_RE, '${$1}')
+  return text.replaceAll(RAW_RE, '${$1}')
 }
 export const isPrimitive = (val: unknown): val is Primitive => {
   if (typeof val === 'object') return val === null
