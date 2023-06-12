@@ -123,7 +123,6 @@ jsxToString(
 // "<div><p>foo</p><p>bar</p><br/><div/>123</div>"
 ```
 
-
 ## Benchmark
 
 ```
@@ -134,7 +133,7 @@ jsxToString(
 <small>
 Tested on Apple M1 Max / 32GB
 
-*More samples are welcome.*
+_More samples are welcome._
 </small>
 
 ## Sponsors
@@ -147,4 +146,4 @@ Tested on Apple M1 Max / 32GB
 
 ## License
 
-[MIT](./LICENSE) License © 2022 [三咲智子](https://github.com/sxzz)
+[MIT](./LICENSE) License © 2022-PRESENT [三咲智子](https://github.com/sxzz)
