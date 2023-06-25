@@ -1,6 +1,0 @@
-node_modules
-dist
-pnpm-lock.yaml
-tests/fixtures
-auto-import.d.ts
-components.d.ts
