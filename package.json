@@ -1,6 +1,6 @@
 {
   "name": "unplugin-jsx-string",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "packageManager": "pnpm@8.6.5",
   "description": "Converts JSX to HTML strings at compile time.",
   "keywords": [
