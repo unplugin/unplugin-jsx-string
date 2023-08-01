@@ -27,8 +27,8 @@ export default createUnplugin<Options>((options = {}) => {
           ...opt,
           id,
         })
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
+      } catch (error: unknown) {
+        this.error(`${name} ${error}`)
       }
     },
   }

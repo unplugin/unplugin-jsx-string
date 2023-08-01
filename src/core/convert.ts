@@ -457,8 +457,8 @@ export function transformJsxToString(
     } else {
       try {
         str = transformJsx(code, node)
-      } catch (err: any) {
-        str = `(() => { throw new Error(${escapeString(err.toString())}) })()`
+      } catch (error: any) {
+        str = `(() => { throw new Error(${escapeString(error.toString())}) })()`
       }
     }
     s.overwrite(expr.start!, expr.end!, str)
