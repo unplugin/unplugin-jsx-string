@@ -30,32 +30,50 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": {
+        "require": "./dist/index.d.ts",
+        "import": "./dist/index.d.mts"
+      },
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./vite": {
-      "types": "./dist/vite.d.ts",
+      "types": {
+        "require": "./dist/vite.d.ts",
+        "import": "./dist/vite.d.mts"
+      },
       "require": "./dist/vite.js",
       "import": "./dist/vite.mjs"
     },
     "./webpack": {
-      "types": "./dist/webpack.d.ts",
+      "types": {
+        "require": "./dist/webpack.d.ts",
+        "import": "./dist/webpack.d.mts"
+      },
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
     "./rollup": {
-      "types": "./dist/rollup.d.ts",
+      "types": {
+        "require": "./dist/rollup.d.ts",
+        "import": "./dist/rollup.d.mts"
+      },
       "require": "./dist/rollup.js",
       "import": "./dist/rollup.mjs"
     },
     "./esbuild": {
-      "types": "./dist/esbuild.d.ts",
+      "types": {
+        "require": "./dist/esbuild.d.ts",
+        "import": "./dist/esbuild.d.mts"
+      },
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
     "./api": {
-      "types": "./dist/api.d.ts",
+      "types": {
+        "require": "./dist/api.d.ts",
+        "import": "./dist/api.d.mts"
+      },
       "require": "./dist/api.js",
       "import": "./dist/api.mjs"
     },
@@ -93,12 +111,12 @@
     "unplugin": "^1.4.0"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^3.2.3",
+    "@sxzz/eslint-config": "^3.3.2",
     "@sxzz/prettier-config": "^1.0.4",
     "@types/benchmark": "^2.1.2",
     "@types/jsesc": "^3.0.1",
     "@types/node": "^20.4.5",
-    "@types/react": "^18.2.17",
+    "@types/react": "^18.2.18",
     "benchmark": "^2.1.4",
     "bumpp": "^9.1.1",
     "eslint": "^8.46.0",
@@ -108,7 +126,7 @@
     "tsup": "^7.1.0",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6",
-    "vite": "^4.4.7",
+    "vite": "^4.4.8",
     "vitest": "^0.33.0"
   },
   "engines": {
