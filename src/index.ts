@@ -8,7 +8,7 @@ declare global {
   const jsxRaw: (variable: any) => any
 }
 
-export default createUnplugin<Options>((options = {}) => {
+export default createUnplugin<Options | undefined, false>((options = {}) => {
   const opt = resolveOption(options)
   const filter = createFilter(opt.include, opt.exclude)
 
