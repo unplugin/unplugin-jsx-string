@@ -101,9 +101,9 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@babel/parser": "^7.22.7",
-    "@babel/types": "^7.22.5",
-    "@rollup/pluginutils": "^5.0.2",
+    "@babel/parser": "^7.22.10",
+    "@babel/types": "^7.22.10",
+    "@rollup/pluginutils": "^5.0.3",
     "entities": "^4.5.0",
     "estree-walker": "^3.0.3",
     "jsesc": "^3.0.2",
@@ -111,15 +111,15 @@
     "unplugin": "^1.4.0"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^3.3.2",
+    "@sxzz/eslint-config": "^3.4.0",
     "@sxzz/prettier-config": "^1.0.4",
     "@types/benchmark": "^2.1.2",
     "@types/jsesc": "^3.0.1",
-    "@types/node": "^20.4.8",
-    "@types/react": "^18.2.18",
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
     "benchmark": "^2.1.4",
     "bumpp": "^9.1.1",
-    "eslint": "^8.46.0",
+    "eslint": "^8.47.0",
     "eslint-define-config": "^1.23.0",
     "fast-glob": "^3.3.1",
     "prettier": "^3.0.1",
