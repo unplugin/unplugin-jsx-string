@@ -9,7 +9,7 @@
         class="icon-btn"
         i-carbon-logo-github
         rel="noreferrer"
-        href="https://github.com/sxzz/unplugin-jsx-string"
+        href="https://github.com/unplugin/unplugin-jsx-string"
         target="_blank"
         title="GitHub"
       />

@@ -1,6 +1,6 @@
 # unplugin-jsx-string [![npm](https://img.shields.io/npm/v/unplugin-jsx-string.svg)](https://npmjs.com/package/unplugin-jsx-string)
 
-[![Unit Test](https://github.com/sxzz/unplugin-jsx-string/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-jsx-string/actions/workflows/unit-test.yml)
+[![Unit Test](https://github.com/unplugin/unplugin-jsx-string/actions/workflows/unit-test.yml/badge.svg)](https://github.com/unplugin/unplugin-jsx-string/actions/workflows/unit-test.yml)
 
 Converts JSX to HTML strings at compile time.
 

@@ -13,13 +13,13 @@
     "react"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/sxzz/unplugin-jsx-string#readme",
+  "homepage": "https://github.com/unplugin/unplugin-jsx-string#readme",
   "bugs": {
-    "url": "https://github.com/sxzz/unplugin-jsx-string/issues"
+    "url": "https://github.com/unplugin/unplugin-jsx-string/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-jsx-string.git"
+    "url": "git+https://github.com/unplugin/unplugin-jsx-string.git"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
