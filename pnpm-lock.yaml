@@ -60,9 +60,6 @@ importers:
       eslint:
         specifier: ^8.54.0
         version: 8.54.0
-      eslint-define-config:
-        specifier: ^1.24.1
-        version: 1.24.1
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2
@@ -111,7 +108,7 @@ importers:
         version: 3.3.8
       unocss:
         specifier: ^0.57.6
-        version: 0.57.6(postcss@8.4.27)(vite@4.5.0)
+        version: 0.57.6(postcss@8.4.31)(vite@4.5.0)
       unplugin-auto-import:
         specifier: ^0.16.7
         version: 0.16.7(@vueuse/core@10.6.1)
@@ -1398,7 +1395,7 @@ packages:
       sirv: 2.0.3
     dev: true
 
-  /@unocss/postcss@0.57.6(postcss@8.4.27):
+  /@unocss/postcss@0.57.6(postcss@8.4.31):
     resolution: {integrity: sha512-xpyr9OHZ59iYr/e0vGgqc4kDGJLbVAvysChfe2xCmfXf2hrqVWwcEYoeE3zW/6xnEDNxk6IQBml2xLjdS34haA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -1410,7 +1407,7 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.3.2
       magic-string: 0.30.5
-      postcss: 8.4.27
+      postcss: 8.4.31
     dev: true
 
   /@unocss/preset-attributify@0.57.6:
@@ -4292,7 +4289,7 @@ packages:
       '@types/unist': 2.0.7
     dev: true
 
-  /unocss@0.57.6(postcss@8.4.27)(vite@4.5.0):
+  /unocss@0.57.6(postcss@8.4.31)(vite@4.5.0):
     resolution: {integrity: sha512-z3a4Z8lGRVawr2A/1U0FuP1M9tuT6bs2RcIJ6kLBz5FC/XlLTGtUek6sadrKA0IMq7RWkgDRhdt8xQV0lh6TaA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -4308,7 +4305,7 @@ packages:
       '@unocss/cli': 0.57.6
       '@unocss/core': 0.57.6
       '@unocss/extractor-arbitrary-variants': 0.57.6
-      '@unocss/postcss': 0.57.6(postcss@8.4.27)
+      '@unocss/postcss': 0.57.6(postcss@8.4.31)
       '@unocss/preset-attributify': 0.57.6
       '@unocss/preset-icons': 0.57.6
       '@unocss/preset-mini': 0.57.6
