@@ -15,7 +15,7 @@ for (const code of codes) {
     transformJsxToString(`jsxToString(${code})`, {
       debug: true,
       plugins: ['jsx'],
-    })
+    }),
   )
 }
 
