@@ -39,7 +39,7 @@ import {
   isPrimitive,
   styleToString,
 } from './utils'
-import { type OptionsResolved } from './options'
+import type { OptionsResolved } from './options'
 
 export type EvaluatedValue =
   | Exclude<Primitive, symbol>
@@ -91,7 +91,7 @@ function transformJsx(code: string, node: JSX) {
       | JSXSpreadChild
       | JSXElement
       | JSXFragment
-    >
+    >,
   ) {
     return nodes.map((child) => toStringJsx(child)).join('')
   }
@@ -114,7 +114,7 @@ function transformJsx(code: string, node: JSX) {
     } else {
       const children = toStringJsxChildren(node.children)
       return `${toStringOpeningElement(
-        node.openingElement
+        node.openingElement,
       )}${children}</${toStringJsxName(node.closingElement!.name)}>`
     }
 
@@ -161,7 +161,7 @@ function transformJsx(code: string, node: JSX) {
 
   function toStringJsxAttributeValue(
     node: NonNullable<JSXAttribute['value']>,
-    key: string
+    key: string,
   ): string | undefined | null {
     // undefined for omiting attribute value
     // null for ignoring whole attribute
@@ -193,7 +193,7 @@ function transformJsx(code: string, node: JSX) {
   }
 
   function toStringJsxName(
-    node: JSXIdentifier | JSXMemberExpression | JSXNamespacedName
+    node: JSXIdentifier | JSXMemberExpression | JSXNamespacedName,
   ) {
     if (node.type === 'JSXIdentifier') return node.name
     return notSupported(node)
@@ -244,7 +244,7 @@ function transformJsx(code: string, node: JSX) {
           : resolveExpression(node.alternate, node)
       case 'SequenceExpression': {
         const expressions = node.expressions.map((expr) =>
-          resolveExpression(expr, node)
+          resolveExpression(expr, node),
         )
         return expressions.at(-1)
       }
@@ -443,7 +443,7 @@ export function transformJsxToString(
     debug,
     plugins,
     id = '',
-  }: Pick<OptionsResolved, 'debug' | 'plugins'> & { id?: string }
+  }: Pick<OptionsResolved, 'debug' | 'plugins'> & { id?: string },
 ) {
   const s = new MagicString(code)
 

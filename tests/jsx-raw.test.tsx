@@ -8,10 +8,10 @@ describe('jsxRaw', () => {
     const foo = 'bar'
     expect(jsxToString(<>{jsxRaw(foo)}</>)).toMatchInlineSnapshot('"bar"')
     expect(jsxToString(<>{jsxRaw(foo + 'hello')}</>)).toMatchInlineSnapshot(
-      '"barhello"'
+      '"barhello"',
     )
     expect(jsxToString(<>{jsxRaw(foo + 'world')}</>)).toMatchInlineSnapshot(
-      '"barworld"'
+      '"barworld"',
     )
   })
 
