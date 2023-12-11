@@ -16,83 +16,77 @@ describe('jsxToString', () => {
     test('basic usage', () => {
       // @ts-expect-error
       expect(jsxToString(<div id={1} />)).toMatchInlineSnapshot(
-        '"<div id=\\"1\\"/>"',
+        '"<div id="1"/>"',
       )
       expect(jsxToString(<div className={`hello`} />)).toMatchInlineSnapshot(
-        '"<div class=\\"hello\\"/>"',
+        '"<div class="hello"/>"',
       )
     })
 
     test('evaluate', () => {
       expect(
         jsxToString(<div className={`hello` + 'hello'} />),
-      ).toMatchInlineSnapshot('"<div class=\\"hellohello\\"/>"')
+      ).toMatchInlineSnapshot('"<div class="hellohello"/>"')
       expect(
         // @ts-expect-error
         jsxToString(<div data-id={{ id: 1 + 2 + true }} />),
-      ).toMatchInlineSnapshot('"<div data-id=\\"{&quot;id&quot;:4}\\"/>"')
+      ).toMatchInlineSnapshot('"<div data-id="{&quot;id&quot;:4}"/>"')
     })
 
     test('attribute name', () => {
       expect(
         jsxToString(<div aria-label="Close" id="ok✅" />),
-      ).toMatchInlineSnapshot(
-        '"<div aria-label=\\"Close\\" id=\\"ok&#x2705;\\"/>"',
-      )
+      ).toMatchInlineSnapshot('"<div aria-label="Close" id="ok&#x2705;"/>"')
     })
 
     test('className', () => {
       expect(jsxToString(<div className="bar" />)).toMatchInlineSnapshot(
-        '"<div class=\\"bar\\"/>"',
+        '"<div class="bar"/>"',
       )
       expect(
         // @ts-expect-error
         jsxToString(<div className={['bar', 'foo']} />),
-      ).toMatchInlineSnapshot('"<div class=\\"bar foo\\"/>"')
+      ).toMatchInlineSnapshot('"<div class="bar foo"/>"')
 
       expect(
         // @ts-expect-error
         jsxToString(<div className={['bar', { foo: true }]} />),
       ).toMatchInlineSnapshot(
-        '"<div class=\\"[&quot;bar&quot;,{&quot;foo&quot;:true}]\\"/>"',
+        '"<div class="[&quot;bar&quot;,{&quot;foo&quot;:true}]"/>"',
       )
     })
 
     test('style', () => {
       expect(
         jsxToString(<div style={{ color: 'red', textAlign: 'center' }} />),
-      ).toMatchInlineSnapshot(
-        '"<div style=\\"color:red;text-align:center\\"/>"',
-      )
+      ).toMatchInlineSnapshot('"<div style="color:red;text-align:center"/>"')
       // @ts-expect-error
       expect(jsxToString(<div style="color:red" />)).toMatchInlineSnapshot(
-        '"<div style=\\"color:red\\"/>"',
+        '"<div style="color:red"/>"',
       )
     })
 
     test('boolean', () => {
       expect(
         jsxToString(<input type="checkbox" checked />),
-      ).toMatchInlineSnapshot('"<input type=\\"checkbox\\" checked/>"')
+      ).toMatchInlineSnapshot('"<input type="checkbox" checked/>"')
       expect(
         jsxToString(<input type="checkbox" checked={true} />),
-      ).toMatchInlineSnapshot('"<input type=\\"checkbox\\" checked/>"')
+      ).toMatchInlineSnapshot('"<input type="checkbox" checked/>"')
       expect(
         jsxToString(<input type="checkbox" checked={false} />),
-      ).toMatchInlineSnapshot('"<input type=\\"checkbox\\"/>"')
+      ).toMatchInlineSnapshot('"<input type="checkbox"/>"')
       expect(
         // @ts-expect-error
         jsxToString(<input type="checkbox" checked="checked" />),
-      ).toMatchInlineSnapshot(
-        '"<input type=\\"checkbox\\" checked=\\"checked\\"/>"',
-      )
+      ).toMatchInlineSnapshot('"<input type="checkbox" checked="checked"/>"')
     })
 
     test('event', () => {
       expect(
         jsxToString(<button onClick={() => 'clicked'}></button>),
       ).toMatchInlineSnapshot(
-        '"<button onclick=\\"&apos;clicked&apos;\\"></button>"',
+        '"<button onclick="&apos;clicked&apos;"></button>"',
       )
       expect(
         jsxToString(
@@ -103,15 +97,15 @@ describe('jsxToString', () => {
           ></button>,
         ),
       ).toMatchInlineSnapshot(`
-          "<button onclick=\\"{
+          "<button onclick="{
                         console.warn(&apos;clicked&apos;)
-                      }\\"></button>"
+                      }"></button>"
         `)
 
       expect(
         // @ts-expect-error
         jsxToString(<button onClick={123}></button>),
-      ).toMatchInlineSnapshot('"<button onclick=\\"123\\"></button>"')
+      ).toMatchInlineSnapshot('"<button onclick="123"></button>"')
     })
   })
 
@@ -162,7 +156,7 @@ describe('jsxToString', () => {
     describe('Literal', () => {
       test('Primitive Literal', () => {
         expect(jsxToString(<>{122}</>)).toMatchInlineSnapshot('"122"')
-        expect(jsxToString(<>{'false"'}</>)).toMatchInlineSnapshot('"false\\""')
+        expect(jsxToString(<>{'false"'}</>)).toMatchInlineSnapshot('"false""')
         expect(jsxToString(<>{false}</>)).toMatchInlineSnapshot('"false"')
         expect(jsxToString(<>{null}</>)).toMatchInlineSnapshot('"null"')
       })
@@ -184,6 +178,7 @@ describe('jsxToString', () => {
         ).toBe(
           // @ts-expect-error
           `a${true}${false}b${null}${true + 1 + 2 + false}${
+            // @ts-expect-error
             null + 1
           }${[]}${{}}`,
         )
@@ -199,7 +194,7 @@ describe('jsxToString', () => {
       test('Object/Array Literal', () => {
         expect(jsxToString(<>{{}}</>)).toMatchInlineSnapshot('"{}"')
         expect(jsxToString(<>{[{ foo: 'bar' }]}</>)).toMatchInlineSnapshot(
-          '"[{\\"foo\\":\\"bar\\"}]"',
+          '"[{"foo":"bar"}]"',
         )
       })
 
@@ -263,33 +258,33 @@ describe('jsxToString', () => {
       expect(() =>
         jsxToString(<div id={`a${s}`} />),
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported Identifier: s"',
+        '[Error: Error: not supported Identifier: s]',
       )
       expect(() =>
         jsxToString(<div id={undefined} />),
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported Identifier: undefined"',
+        '[Error: Error: not supported Identifier: undefined]',
       )
       expect(() =>
         jsxToString(<div>{...[]}</div>),
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported JSXSpreadChild: {...[]}"',
+        '[Error: Error: not supported JSXSpreadChild: {...[]}]',
       )
       expect(() =>
         jsxToString(<div tabIndex={n} />),
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported Identifier: n"',
+        '[Error: Error: not supported Identifier: n]',
       )
       expect(() =>
         jsxToString(<div tabIndex={n++} />),
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported UpdateExpression: n++"',
+        '[Error: Error: not supported UpdateExpression: n++]',
       )
       expect(() =>
         // @ts-expect-error
         jsxToString(<div className={[s, 'class']} />),
       ).toThrowErrorMatchingInlineSnapshot(
-        '"Error: not supported Identifier: s"',
+        '[Error: Error: not supported Identifier: s]',
       )
     })
   })
@@ -301,6 +296,6 @@ describe('jsxToString', () => {
           `///\\\\`${233}${'foo'}
         </div>,
       ),
-    ).toMatchInlineSnapshot('"<div>`///\\\\\\\\\\\\\\\\`$233$foo</div>"')
+    ).toMatchInlineSnapshot('"<div>`///\\\\\\\\`$233$foo</div>"')
   })
 })
