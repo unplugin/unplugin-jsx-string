@@ -108,7 +108,7 @@
     "estree-walker": "^3.0.3",
     "jsesc": "^3.0.2",
     "magic-string": "^0.30.5",
-    "unplugin": "^1.5.1"
+    "unplugin": "^2.1.2"
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^3.7.4",
