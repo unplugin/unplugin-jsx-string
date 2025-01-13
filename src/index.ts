@@ -4,6 +4,7 @@ import { transformJsxToString } from './core/convert'
 import { resolveOption, type Options } from './core/options'
 
 declare global {
+  // @ts-expect-error missing JSX
   const jsxToString: (element: JSX.Element) => string
   const jsxRaw: (variable: any) => any
 }

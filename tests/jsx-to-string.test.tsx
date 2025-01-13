@@ -193,13 +193,16 @@ describe('jsxToString', () => {
       })
 
       test('Object/Array Literal', () => {
+        // @ts-ignore
         expect(jsxToString(<>{{}}</>)).toMatchInlineSnapshot('"{}"')
+        // @ts-ignore
         expect(jsxToString(<>{[{ foo: 'bar' }]}</>)).toMatchInlineSnapshot(
           '"[{"foo":"bar"}]"',
         )
       })
 
       test('RegExpLiteral', () => {
+        // @ts-ignore
         expect(jsxToString(<>{/a(.*)/g}</>)).toMatchInlineSnapshot('"/a(.*)/g"')
       })
     })
@@ -214,6 +217,7 @@ describe('jsxToString', () => {
       expect(jsxToString(<>{1 - 2 + 3 / 5}</>)).toMatchInlineSnapshot('"-0.4"')
       expect(jsxToString(<>{2 ** 2}</>)).toMatchInlineSnapshot('"4"')
       expect(jsxToString(<>{false || 2}</>)).toMatchInlineSnapshot('"2"')
+      // @ts-expect-error
       expect(jsxToString(<>{null ?? 'foo'}</>)).toMatchInlineSnapshot('"foo"')
       expect(jsxToString(<>{1 && (false || 0.2)}</>)).toMatchInlineSnapshot(
         '"0.2"',
@@ -236,7 +240,9 @@ describe('jsxToString', () => {
     })
 
     test('ConditionalExpression', () => {
+      // @ts-expect-error
       expect(jsxToString(<>{'1' ? 1 : 2}</>)).toMatchInlineSnapshot('"1"')
+      // @ts-expect-error
       expect(jsxToString(<>{void 1 ? 1 : 2}</>)).toMatchInlineSnapshot('"2"')
     })
 
