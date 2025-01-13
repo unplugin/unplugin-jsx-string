@@ -3,6 +3,7 @@
   "version": "0.7.1",
   "packageManager": "pnpm@10.0.0",
   "description": "Converts JSX to HTML strings at compile time.",
+  "type": "module",
   "keywords": [
     "unplugin",
     "jsx",
@@ -26,56 +27,32 @@
     "dist"
   ],
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": {
-        "require": "./dist/index.d.ts",
-        "import": "./dist/index.d.mts"
-      },
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
     "./vite": {
-      "types": {
-        "require": "./dist/vite.d.ts",
-        "import": "./dist/vite.d.mts"
-      },
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.mjs"
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.js"
     },
     "./webpack": {
-      "types": {
-        "require": "./dist/webpack.d.ts",
-        "import": "./dist/webpack.d.mts"
-      },
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.mjs"
+      "require": "./dist/webpack.cjs",
+      "import": "./dist/webpack.js"
     },
     "./rollup": {
-      "types": {
-        "require": "./dist/rollup.d.ts",
-        "import": "./dist/rollup.d.mts"
-      },
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.js"
     },
     "./esbuild": {
-      "types": {
-        "require": "./dist/esbuild.d.ts",
-        "import": "./dist/esbuild.d.mts"
-      },
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.js"
     },
     "./api": {
-      "types": {
-        "require": "./dist/api.d.ts",
-        "import": "./dist/api.d.mts"
-      },
-      "require": "./dist/api.js",
-      "import": "./dist/api.mjs"
+      "require": "./dist/api.cjs",
+      "import": "./dist/api.js"
     },
     "./*": "./*"
   },
@@ -97,7 +74,7 @@
     "dev": "pnpm run -C playground dev",
     "test": "vitest",
     "release": "bumpp && pnpm publish",
-    "benchmark": "node benchmark/index.mjs",
+    "benchmark": "node benchmark/index.js",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
