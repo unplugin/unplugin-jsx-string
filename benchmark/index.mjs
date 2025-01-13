@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import Benchmark from 'benchmark'
-import { transformJsxToString } from '../dist/cores.mjs'
+import { transformJsxToString } from '../dist/api.mjs'
 
 const codes = [
   '<div>Hello World</div>',
