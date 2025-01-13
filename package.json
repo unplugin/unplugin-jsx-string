@@ -1,7 +1,7 @@
 {
   "name": "unplugin-jsx-string",
   "version": "0.7.1",
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@10.0.0",
   "description": "Converts JSX to HTML strings at compile time.",
   "keywords": [
     "unplugin",
@@ -101,32 +101,31 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@babel/parser": "^7.23.3",
-    "@babel/types": "^7.23.3",
-    "@rollup/pluginutils": "^5.0.5",
-    "entities": "^5.0.0",
+    "@babel/parser": "^7.26.5",
+    "@babel/types": "^7.26.5",
+    "@rollup/pluginutils": "^5.1.4",
+    "entities": "^6.0.0",
     "estree-walker": "^3.0.3",
-    "jsesc": "^3.0.2",
-    "magic-string": "^0.30.5",
-    "unplugin": "^1.5.1"
+    "jsesc": "^3.1.0",
+    "magic-string": "^0.30.17",
+    "unplugin": "^2.1.2"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^3.7.4",
-    "@sxzz/prettier-config": "^2.0.0",
+    "@sxzz/eslint-config": "^4.6.0",
+    "@sxzz/prettier-config": "^2.0.2",
     "@types/benchmark": "^2.1.5",
     "@types/jsesc": "^3.0.3",
-    "@types/node": "^20.9.2",
-    "@types/react": "^18.2.37",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.6",
     "benchmark": "^2.1.4",
-    "bumpp": "^9.2.0",
-    "eslint": "^8.54.0",
-    "fast-glob": "^3.3.2",
-    "prettier": "^3.1.0",
-    "tsup": "^8.0.1",
-    "tsx": "^4.1.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.4",
-    "vitest": "^2.0.3"
+    "bumpp": "^9.10.0",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
   },
   "engines": {
     "node": ">=16.14.0"
