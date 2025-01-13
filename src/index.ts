@@ -1,7 +1,7 @@
-import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
+import { createUnplugin } from 'unplugin'
 import { transformJsxToString } from './core/convert'
-import { type Options, resolveOption } from './core/options'
+import { resolveOption, type Options } from './core/options'
 
 declare global {
   const jsxToString: (element: JSX.Element) => string

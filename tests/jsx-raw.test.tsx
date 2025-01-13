@@ -1,5 +1,3 @@
-/* eslint-disable no-void */
-/* eslint-disable no-constant-condition */
 /* eslint-disable prefer-template */
 import { describe, expect, test } from 'vitest'
 

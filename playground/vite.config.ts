@@ -1,9 +1,9 @@
 import path from 'node:path'
-import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
+import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import Unocss from 'unocss/vite'
+import { defineConfig } from 'vite'
 
 const resolve = (...paths: string[]) => path.resolve(__dirname, 'src', ...paths)
 

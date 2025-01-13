@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 /* eslint-disable no-void */
 /* eslint-disable no-constant-condition */
 /* eslint-disable prefer-template */

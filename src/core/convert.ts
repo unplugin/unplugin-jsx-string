@@ -1,8 +1,13 @@
-import { type ParserPlugin, parse } from '@babel/parser'
-import { walk } from 'estree-walker'
-import { encode } from 'entities'
-import MagicString from 'magic-string'
+import { parse, type ParserPlugin } from '@babel/parser'
 import {
+  isBooleanLiteral,
+  isCallExpression,
+  isFunction,
+  isIdentifier,
+  isJSX,
+  isJSXExpressionContainer,
+  isLiteral,
+  isStringLiteral,
   type ArrayExpression,
   type Binary,
   type CallExpression,
@@ -23,21 +28,16 @@ import {
   type ObjectExpression,
   type TemplateLiteral,
   type UnaryExpression,
-  isBooleanLiteral,
-  isCallExpression,
-  isFunction,
-  isIdentifier,
-  isJSX,
-  isJSXExpressionContainer,
-  isLiteral,
-  isStringLiteral,
 } from '@babel/types'
+import { encode } from 'entities'
+import { walk } from 'estree-walker'
+import MagicString from 'magic-string'
 import {
-  type Primitive,
   escapeString,
   isPlainObject,
   isPrimitive,
   styleToString,
+  type Primitive,
 } from './utils'
 import type { OptionsResolved } from './options'
 
@@ -75,15 +75,6 @@ function transformJsx(code: string, node: JSX) {
     return toStringExpression(resolveJsx(node))
   }
 
-  function toStringExpression(expr: EvaluatedValue) {
-    if (expr instanceof RegExp) {
-      return expr.toString()
-    } else if (typeof expr === 'object') {
-      return JSON.stringify(expr)
-    }
-    return String(expr)
-  }
-
   function toStringJsxChildren(
     nodes: Array<
       | JSXText
@@ -96,18 +87,6 @@ function transformJsx(code: string, node: JSX) {
     return nodes.map((child) => toStringJsx(child)).join('')
   }
 
-  function toStringJsxText(node: JSXText) {
-    const texts = node.value.split('\n')
-
-    return texts
-      .map((text, idx) => (idx > 0 ? text.trim() : text))
-      .filter((line) => {
-        if (line.trim().length === 0) return false
-        return true
-      })
-      .join(' ')
-  }
-
   function toStringJsxElement(node: JSXElement) {
     if (node.openingElement.selfClosing) {
       return toStringOpeningElement(node.openingElement)
@@ -116,28 +95,6 @@ function transformJsx(code: string, node: JSX) {
       return `${toStringOpeningElement(
         node.openingElement,
       )}${children}</${toStringJsxName(node.closingElement!.name)}>`
-    }
-
-    function toStringOpeningElement(node: JSXOpeningElement) {
-      let str = `<${toStringJsxName(node.name)}`
-
-      const props: string[] = node.attributes
-        .map((attr) => {
-          if (attr.type === 'JSXAttribute') {
-            return toStringJsxAttribute(attr)
-          } else {
-            return notSupported(node)
-          }
-        })
-        .filter((x): x is string => x !== undefined)
-
-      if (props.length > 0) {
-        str += ` ${props.join(' ')}`
-      }
-
-      str += node.selfClosing ? '/>' : '>'
-
-      return str
     }
   }
 
@@ -435,6 +392,49 @@ function transformJsx(code: string, node: JSX) {
   function notSupported(node: Node): never {
     throw new Error(`not supported ${node.type}: ${getSource(node)}`)
   }
+
+  function toStringOpeningElement(node: JSXOpeningElement) {
+    let str = `<${toStringJsxName(node.name)}`
+
+    const props: string[] = node.attributes
+      .map((attr) => {
+        if (attr.type === 'JSXAttribute') {
+          return toStringJsxAttribute(attr)
+        } else {
+          return notSupported(node)
+        }
+      })
+      .filter((x): x is string => x !== undefined)
+
+    if (props.length > 0) {
+      str += ` ${props.join(' ')}`
+    }
+
+    str += node.selfClosing ? '/>' : '>'
+
+    return str
+  }
+}
+
+function toStringExpression(expr: EvaluatedValue) {
+  if (expr instanceof RegExp) {
+    return expr.toString()
+  } else if (typeof expr === 'object') {
+    return JSON.stringify(expr)
+  }
+  return String(expr)
+}
+
+function toStringJsxText(node: JSXText) {
+  const texts = node.value.split('\n')
+
+  return texts
+    .map((text, idx) => (idx > 0 ? text.trim() : text))
+    .filter((line) => {
+      if (line.trim().length === 0) return false
+      return true
+    })
+    .join(' ')
 }
 
 export function transformJsxToString(
