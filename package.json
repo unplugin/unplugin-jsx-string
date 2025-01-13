@@ -115,7 +115,7 @@
     "@sxzz/prettier-config": "^2.0.0",
     "@types/benchmark": "^2.1.5",
     "@types/jsesc": "^3.0.3",
-    "@types/node": "^20.9.2",
+    "@types/node": "^22.10.5",
     "@types/react": "^18.2.37",
     "benchmark": "^2.1.4",
     "bumpp": "^9.2.0",
