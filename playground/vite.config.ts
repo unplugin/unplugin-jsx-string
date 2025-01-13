@@ -1,5 +1,6 @@
 import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
+import ReactivityTransform from '@vue-macros/reactivity-transform/vite'
 import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -12,10 +13,8 @@ export default defineConfig({
     'process.env.BABEL_TYPES_8_BREAKING': 'false',
   },
   plugins: [
-    Vue({
-      reactivityTransform: true,
-    }),
-
+    ReactivityTransform(),
+    Vue(),
     AutoImport({
       imports: ['vue', '@vueuse/core'],
       dirs: [resolve('composables')],

@@ -1,7 +1,7 @@
 {
   "name": "unplugin-jsx-string-playground",
   "version": "0.0.0",
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@10.0.0",
   "license": "MIT",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@iconify-json/carbon": "^1.2.5",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue-macros/reactivity-transform": "^1.1.4",
     "unocss": "^65.4.0",
     "unplugin-auto-import": "^19.0.0",
     "unplugin-vue-components": "^28.0.0",
