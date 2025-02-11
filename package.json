@@ -95,7 +95,7 @@
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.6",
     "benchmark": "^2.1.4",
-    "bumpp": "^9.10.0",
+    "bumpp": "^10.0.3",
     "eslint": "^9.18.0",
     "prettier": "^3.4.2",
     "tsup": "^8.3.5",
