@@ -444,7 +444,7 @@ export function transformJsxToString(
     plugins,
     id = '',
   }: Pick<OptionsResolved, 'debug' | 'plugins'> & { id?: string },
-) {
+): { code: string; map: any } {
   const s = new MagicString(code)
 
   if (id.endsWith('.tsx')) plugins.push('typescript')
@@ -468,8 +468,9 @@ export function transformJsxToString(
     code: s.toString(),
     get map() {
       return s.generateMap({
-        hires: 'boundary',
+        source: id,
         includeContent: true,
+        hires: 'boundary',
       })
     },
   }

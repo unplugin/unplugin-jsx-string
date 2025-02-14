@@ -1,7 +1,7 @@
 import { createFilter } from '@rollup/pluginutils'
-import { createUnplugin } from 'unplugin'
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { transformJsxToString } from './core/convert'
-import { resolveOption, type Options } from './core/options'
+import { resolveOptions, type Options } from './core/options'
 
 declare global {
   // @ts-expect-error missing JSX
@@ -9,28 +9,32 @@ declare global {
   const jsxRaw: (variable: any) => any
 }
 
-export default createUnplugin<Options | undefined, false>((options = {}) => {
-  const opt = resolveOption(options)
-  const filter = createFilter(opt.include, opt.exclude)
+const JsxString: UnpluginInstance<Options | undefined, false> = createUnplugin(
+  (options = {}) => {
+    const opt = resolveOptions(options)
+    const filter = createFilter(opt.include, opt.exclude)
 
-  const name = 'unplugin-jsx-string'
-  return {
-    name,
-    enforce: 'pre',
+    const name = 'unplugin-jsx-string'
+    return {
+      name,
+      enforce: 'pre',
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      transformInclude(id) {
+        return filter(id)
+      },
 
-    transform(code, id) {
-      try {
-        return transformJsxToString(code, {
-          ...opt,
-          id,
-        })
-      } catch (error: unknown) {
-        this.error(`${name} ${error}`)
-      }
-    },
-  }
-})
+      transform(code, id) {
+        try {
+          return transformJsxToString(code, {
+            ...opt,
+            id,
+          })
+        } catch (error: unknown) {
+          this.error(`${name} ${error}`)
+        }
+      },
+    }
+  },
+)
+
+export default JsxString

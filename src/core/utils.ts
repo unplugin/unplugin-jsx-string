@@ -10,20 +10,21 @@ export type Primitive =
   | bigint
 
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
-export function kebabCase(str: string) {
+export function kebabCase(str: string): string {
   return str.replaceAll(KEBAB_REGEX, (match) => {
     return `-${match.toLowerCase()}`
   })
 }
 
-export const styleToString = (styles: Record<string, string>) =>
-  Object.entries(styles)
+export function styleToString(styles: Record<string, string>): string {
+  return Object.entries(styles)
     .map(([key, value]) => `${kebabCase(key)}:${value}`)
     .join(';')
+}
 
 const RAW_RE = /__RAW_(.*?)_RAW/g
 
-export const escapeString = (str: string) => {
+export function escapeString(str: string): string {
   const text = jsesc(str, {
     quotes: 'backtick',
     wrap: true,

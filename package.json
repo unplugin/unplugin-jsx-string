@@ -73,6 +73,7 @@
     "build": "tsdown",
     "dev": "pnpm run -C playground dev",
     "test": "vitest",
+    "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish",
     "benchmark": "node benchmark/index.js",
     "prepublishOnly": "pnpm run build"

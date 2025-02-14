@@ -3,7 +3,7 @@ import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
   include?: FilterPattern
-  exclude?: FilterPattern | undefined
+  exclude?: FilterPattern
   debug?: boolean
   /**
    * Plugins for `@babel/parser`
@@ -12,15 +12,22 @@ export interface Options {
    * @default `['jsx']` or `['jsx', 'typescript']`.
    */
   plugins?: ParserPlugin[]
+  enforce?: 'pre' | 'post' | undefined
 }
 
-export type OptionsResolved = Required<Options>
+type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
 
-export function resolveOption(options: Options): OptionsResolved {
+export type OptionsResolved = Overwrite<
+  Required<Options>,
+  Pick<Options, 'enforce'>
+>
+
+export function resolveOptions(options: Options): OptionsResolved {
   return {
     include: options.include || [/\.[jt]sx$/],
-    exclude: options.exclude || undefined,
+    exclude: options.exclude || [/node_modules/],
     debug: options.debug ?? false,
     plugins: ['jsx'],
+    enforce: 'enforce' in options ? options.enforce : 'pre',
   }
 }
