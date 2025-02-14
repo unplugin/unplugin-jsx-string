@@ -86,8 +86,8 @@ module.exports = {
 {
   "compilerOptions": {
     // ...
-    "types": ["unplugin-jsx-string" /* ... */]
-  }
+    "types": ["unplugin-jsx-string" /* ... */],
+  },
 }
 ```
 
@@ -118,7 +118,7 @@ jsxToString(
     <br />
     <div />
     123
-  </div>
+  </div>,
 )
 // "<div><p>foo</p><p>bar</p><br/><div/>123</div>"
 ```
@@ -126,8 +126,8 @@ jsxToString(
 ## Benchmark
 
 ```
-<div>Hello World</div> x 89,429 ops/sec ±0.88% (95 runs sampled)
-<div><img src={'foo'} /><div></div></div> x 62,522 ops/sec ±0.62% (93 runs sampled)
+<div>Hello World</div> x 99,362 ops/sec ±0.55% (92 runs sampled)
+<div><img src={'foo'} /><div></div></div> x 66,281 ops/sec ±0.63% (95 runs sampled)
 ```
 
 <small>
