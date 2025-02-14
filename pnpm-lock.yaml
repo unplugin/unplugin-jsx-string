@@ -14,9 +14,6 @@ importers:
       '@babel/types':
         specifier: ^7.26.8
         version: 7.26.8
-      '@rollup/pluginutils':
-        specifier: ^5.1.4
-        version: 5.1.4(rollup@4.34.6)
       entities:
         specifier: ^6.0.0
         version: 6.0.0
@@ -32,6 +29,9 @@ importers:
       unplugin:
         specifier: ^2.2.0
         version: 2.2.0
+      unplugin-utils:
+        specifier: ^0.2.4
+        version: 0.2.4
     devDependencies:
       '@sxzz/eslint-config':
         specifier: ^5.1.1

@@ -65,12 +65,12 @@
   "dependencies": {
     "@babel/parser": "^7.26.8",
     "@babel/types": "^7.26.8",
-    "@rollup/pluginutils": "^5.1.4",
     "entities": "^6.0.0",
     "estree-walker": "^3.0.3",
     "jsesc": "^3.1.0",
     "magic-string": "^0.30.17",
-    "unplugin": "^2.2.0"
+    "unplugin": "^2.2.0",
+    "unplugin-utils": "^0.2.4"
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^5.1.1",

@@ -1,5 +1,5 @@
 import type { ParserPlugin } from '@babel/parser'
-import type { FilterPattern } from '@rollup/pluginutils'
+import type { FilterPattern } from 'unplugin-utils'
 
 export interface Options {
   include?: FilterPattern
