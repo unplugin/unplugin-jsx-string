@@ -70,7 +70,7 @@
   "scripts": {
     "lint": "eslint --cache .",
     "lint:fix": "pnpm run lint --fix",
-    "build": "tsup",
+    "build": "tsdown",
     "dev": "pnpm run -C playground dev",
     "test": "vitest",
     "release": "bumpp && pnpm publish",
@@ -98,7 +98,7 @@
     "bumpp": "^10.0.3",
     "eslint": "^9.20.1",
     "prettier": "^3.5.1",
-    "tsup": "^8.3.6",
+    "tsdown": "^0.5.9",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^6.1.0",
