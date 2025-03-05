@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^5.2.0",
-    "@sxzz/prettier-config": "^2.2.0",
+    "@sxzz/prettier-config": "^2.2.1",
     "@types/benchmark": "^2.1.5",
     "@types/jsesc": "^3.0.3",
     "@types/node": "^22.13.9",
@@ -84,7 +84,7 @@
     "bumpp": "^10.0.3",
     "eslint": "^9.21.0",
     "prettier": "^3.5.3",
-    "tsdown": "^0.6.3",
+    "tsdown": "^0.6.4",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vite": "^6.2.0",
