@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { transformJsxToString } from 'unplugin-jsx-string/api'
 
-const { copy } = useClipboard()
+const { copy, copied } = useClipboard()
 
 const code = $ref(
   `
@@ -33,41 +33,40 @@ const convert = () => {
   }
 }
 
-const copyOutput = async () => {
-  await copy(result)
-  // eslint-disable-next-line no-alert
-  alert('Copied!')
-}
+const copyOutput = () => copy(result)
 
 watch($$(code), () => convert(), { immediate: true })
 </script>
 
 <template>
-  <main font-sans p="x-4 y-10" text="center gray-700 dark:gray-200">
+  <main
+    font-sans
+    py10
+    text="gray-700 dark:gray-200"
+    flex="~ col"
+    items-center
+    gap4
+  >
     <app-header />
-
-    <div py-4 />
-
     <code-input v-model="code" placeholder="Paste your code" />
 
-    <div py-4>Output</div>
-
-    <code-input :model-value="result" readonly />
-
-    <div>
+    <div flex gap2 items-center>
+      Output
       <button
         text-sm
-        btn
-        flex="inline gap-1"
-        items-center
+        rounded
+        hover="bg-active"
+        p2
         :disabled="!code"
         @click="copyOutput"
       >
-        <div i-carbon-copy inline-block />
-        Copy
+        <div
+          :class="copied ? 'i-carbon:checkmark text-green' : 'i-carbon-copy'"
+        />
       </button>
     </div>
 
+    <code-input :model-value="result" readonly />
     <app-footer />
   </main>
 </template>
