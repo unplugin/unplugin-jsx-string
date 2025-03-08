@@ -98,6 +98,11 @@ module.exports = {
 jsxToString(<div>Hello</div>)
 // "<div>Hello</div>"
 
+// raw expression
+const t = Date.now()
+jsxToString(<div>Now: {jsxRaw(Math.trunc(t / 1000))}</div>)
+// `<div>Now: ${Math.trunc(t / 1000)}</div>`
+
 // class list
 jsxToString(<div className={['bar', 'foo']} />)
 // `<div class="bar foo"/>`
