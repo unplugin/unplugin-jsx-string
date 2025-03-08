@@ -18,7 +18,7 @@ console.log(jsxToString(<div className={[
   'foo',
   'bar',
 ]} style={{ color: 'red', fontSize: '20px' }} />))
-`.trim()
+`.trim(),
 )
 let result = $ref('')
 

@@ -1,16 +1,10 @@
 <script lang="ts" setup>
-defineProps<{
-  modelValue: string
-}>()
-
-defineEmits<{
-  (evt: 'update:modelValue', value: string): void
-}>()
+const value = defineModel<string>()
 </script>
 
 <template>
   <textarea
-    :value="modelValue"
+    v-model="value"
     p-2
     w-full
     max-w="800px"
@@ -19,8 +13,5 @@ defineEmits<{
     bg="transparent"
     border="~ rounded gray-200 dark:gray-700"
     outline="none active:none"
-    @input="
-      $emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)
-    "
   />
 </template>
