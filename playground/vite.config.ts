@@ -6,7 +6,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 
-const resolve = (...paths: string[]) => path.resolve(__dirname, 'src', ...paths)
+const resolve = (...paths: string[]) =>
+  path.resolve(import.meta.dirname, 'src', ...paths)
 
 export default defineConfig({
   define: {
