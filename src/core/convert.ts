@@ -442,12 +442,12 @@ export function transformJsxToString(
   {
     debug,
     plugins,
-    id = '',
+    id,
   }: Pick<OptionsResolved, 'debug' | 'plugins'> & { id?: string },
 ): { code: string; map: any } {
   const s = new MagicString(code)
 
-  if (id.endsWith('.tsx')) plugins.push('typescript')
+  if (id?.endsWith('.tsx')) plugins.push('typescript')
   const nodes = extractJsx(code, plugins)
 
   for (const [node, expr] of nodes) {
