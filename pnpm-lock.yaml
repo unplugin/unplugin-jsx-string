@@ -101,8 +101,8 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       '@vue-macros/reactivity-transform':
-        specifier: ^3.0.0-beta.3
-        version: 3.0.0-beta.3(vue@3.5.13(typescript@5.8.2))
+        specifier: ^3.0.0-beta.4
+        version: 3.0.0-beta.4(vue@3.5.13(typescript@5.8.2))
       unocss:
         specifier: ^66.1.0-beta.3
         version: 66.1.0-beta.3(postcss@8.5.3)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
@@ -953,8 +953,8 @@ packages:
   '@volar/typescript@2.4.12':
     resolution: {integrity: sha512-HJB73OTJDgPc80K30wxi3if4fSsZZAOScbj2fcicMuOPoOkcf9NNAINb33o+DzhBdF9xTKC1gnPmIRDous5S0g==}
 
-  '@vue-macros/common@3.0.0-beta.3':
-    resolution: {integrity: sha512-PRBoe8axiKuMrb3leZRM2nuqUO6x3aPpeS41JLkLYMxcLwQn8zYinjn4Ir3Pa8uakN7QegpGh9RfqfgZ8fVtAA==}
+  '@vue-macros/common@3.0.0-beta.4':
+    resolution: {integrity: sha512-OggEBsGKvXgwRboRHqjbOQPjHMIHbHNTfiEQP+A1RmHqfu20GfBH+1y4t7BOGq8Snlxf7HDeHPFGhWz/Ba5AJQ==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
       vue: ^2.7.0 || ^3.2.25
@@ -962,8 +962,8 @@ packages:
       vue:
         optional: true
 
-  '@vue-macros/reactivity-transform@3.0.0-beta.3':
-    resolution: {integrity: sha512-G/5zVSmjrGhoxcbMRNuRgf6lLR2W+merMtmunMDmn81EXt2K8rJYrH87Ih8kWb5UvMoB4C6YZEN85oUxslsdww==}
+  '@vue-macros/reactivity-transform@3.0.0-beta.4':
+    resolution: {integrity: sha512-OTeh1MUNiL/yqlrYEeYceOmoCEdhN54dOoan5uyGWZu+s8XoO3AW2i1jaVDoO+OJvl+5jPKTMnmwQMH+q2ye+A==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
       vue: ^2.7.0 || ^3.2.25
@@ -1768,9 +1768,9 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  magic-string-ast@0.7.1:
-    resolution: {integrity: sha512-ub9iytsEbT7Yw/Pd29mSo/cNQpaEu67zR1VVcXDiYjSFwzeBxNdTd0FMnSslLQXiRj8uGPzwsaoefrMD5XAmdw==}
-    engines: {node: '>=16.14.0'}
+  magic-string-ast@0.8.0:
+    resolution: {integrity: sha512-e9eH6YOYl2OuDd3fNt2ciFhj/l2vxJmGeWLLcY+0NcW6k0Xitq7XIxN2++QVVhswXeJLy95SjF8oVKRyJC95GQ==}
+    engines: {node: '>=20.18.0'}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -3467,20 +3467,20 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@vue-macros/common@3.0.0-beta.3(vue@3.5.13(typescript@5.8.2))':
+  '@vue-macros/common@3.0.0-beta.4(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@vue/compiler-sfc': 3.5.13
       ast-kit: 1.4.2
       local-pkg: 1.1.1
-      magic-string-ast: 0.7.1
+      magic-string-ast: 0.8.0
       unplugin-utils: 0.2.4
     optionalDependencies:
       vue: 3.5.13(typescript@5.8.2)
 
-  '@vue-macros/reactivity-transform@3.0.0-beta.3(vue@3.5.13(typescript@5.8.2))':
+  '@vue-macros/reactivity-transform@3.0.0-beta.4(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@babel/parser': 7.26.9
-      '@vue-macros/common': 3.0.0-beta.3(vue@3.5.13(typescript@5.8.2))
+      '@vue-macros/common': 3.0.0-beta.4(vue@3.5.13(typescript@5.8.2))
       '@vue/compiler-core': 3.5.13
       '@vue/shared': 3.5.13
       magic-string: 0.30.17
@@ -4375,7 +4375,7 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  magic-string-ast@0.7.1:
+  magic-string-ast@0.8.0:
     dependencies:
       magic-string: 0.30.17
 
