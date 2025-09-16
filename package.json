@@ -32,14 +32,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
+    "./api": "./dist/api.js",
     "./esbuild": "./dist/esbuild.js",
-    "./rollup": "./dist/rollup.js",
     "./rolldown": "./dist/rolldown.js",
-    "./webpack": "./dist/webpack.js",
+    "./rollup": "./dist/rollup.js",
     "./rspack": "./dist/rspack.js",
     "./vite": "./dist/vite.js",
-    "./api": "./dist/api.js",
-    "./*": "./*"
+    "./webpack": "./dist/webpack.js",
+    "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
@@ -93,5 +93,11 @@
   "engines": {
     "node": ">=20.19.0"
   },
-  "prettier": "@sxzz/prettier-config"
+  "prettier": "@sxzz/prettier-config",
+  "tsdown": {
+    "entry": [
+      "./src/*.ts"
+    ],
+    "exports": true
+  }
 }
