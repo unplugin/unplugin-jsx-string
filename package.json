@@ -59,7 +59,7 @@
     "dev": "pnpm run -C playground dev",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "release": "bumpp && pnpm publish",
+    "release": "bumpp",
     "benchmark": "node benchmark/index.js",
     "prepublishOnly": "pnpm run build"
   },
