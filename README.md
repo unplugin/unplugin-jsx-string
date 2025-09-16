@@ -1,6 +1,9 @@
-# unplugin-jsx-string [![npm](https://img.shields.io/npm/v/unplugin-jsx-string.svg)](https://npmjs.com/package/unplugin-jsx-string)
+# unplugin-jsx-string
 
-[![Unit Test](https://github.com/unplugin/unplugin-jsx-string/actions/workflows/unit-test.yml/badge.svg)](https://github.com/unplugin/unplugin-jsx-string/actions/workflows/unit-test.yml)
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Unit Test][unit-test-src]][unit-test-href]
+
 
 Converts JSX to HTML strings at compile time.
 
@@ -151,4 +154,13 @@ _More samples are welcome._
 
 ## License
 
-[MIT](./LICENSE) License © 2022-PRESENT [三咲智子](https://github.com/sxzz)
+[MIT](./LICENSE) License © 2022-PRESENT [Kevin Deng](https://github.com/sxzz)
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/unplugin-jsx-string.svg
+[npm-version-href]: https://npmjs.com/package/unplugin-jsx-string
+[npm-downloads-src]: https://img.shields.io/npm/dm/unplugin-jsx-string
+[npm-downloads-href]: https://www.npmcharts.com/compare/unplugin-jsx-string?interval=30
+[unit-test-src]: https://github.com/unplugin/unplugin-jsx-string/actions/workflows/unit-test.yml/badge.svg
+[unit-test-href]: https://github.com/unplugin/unplugin-jsx-string/actions/workflows/unit-test.yml
